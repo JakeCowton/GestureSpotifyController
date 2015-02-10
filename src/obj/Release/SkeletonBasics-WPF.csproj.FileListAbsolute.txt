@@ -1,0 +1,12 @@
+C:\Programming\C#\skeleton_basics\SkeletonBasics-WPF\bin\Release\SkeletonBasics-WPF.exe
+C:\Programming\C#\skeleton_basics\SkeletonBasics-WPF\bin\Release\SkeletonBasics-WPF.pdb
+C:\Programming\C#\skeleton_basics\SkeletonBasics-WPF\obj\Release\SkeletonBasics-WPF.csprojResolveAssemblyReference.cache
+C:\Programming\C#\skeleton_basics\SkeletonBasics-WPF\obj\Release\MainWindow.baml
+C:\Programming\C#\skeleton_basics\SkeletonBasics-WPF\obj\Release\MainWindow.g.cs
+C:\Programming\C#\skeleton_basics\SkeletonBasics-WPF\obj\Release\App.g.cs
+C:\Programming\C#\skeleton_basics\SkeletonBasics-WPF\obj\Release\SkeletonBasics-WPF_MarkupCompile.cache
+C:\Programming\C#\skeleton_basics\SkeletonBasics-WPF\obj\Release\SkeletonBasics-WPF.g.resources
+C:\Programming\C#\skeleton_basics\SkeletonBasics-WPF\obj\Release\Microsoft.Samples.Kinect.SkeletonBasics.Properties.Resources.resources
+C:\Programming\C#\skeleton_basics\SkeletonBasics-WPF\obj\Release\SkeletonBasics-WPF.csproj.GenerateResource.Cache
+C:\Programming\C#\skeleton_basics\SkeletonBasics-WPF\obj\Release\SkeletonBasics-WPF.exe
+C:\Programming\C#\skeleton_basics\SkeletonBasics-WPF\obj\Release\SkeletonBasics-WPF.pdb
