@@ -4,7 +4,7 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace Microsoft.Samples.Kinect.SkeletonBasics
+namespace SpotifyKinectInterface
 {
     using System.Windows;
 
