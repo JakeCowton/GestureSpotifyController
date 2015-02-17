@@ -115,6 +115,8 @@ namespace SpotifyKinectInterface
                 commands.Add(new SemanticResultValue("next", "NEXT"));
                 commands.Add(new SemanticResultValue("previous", "PREVIOUS"));
                 commands.Add(new SemanticResultValue("mute", "MUTE"));
+                commands.Add(new SemanticResultValue("volume up", "VOLUME UP"));
+                commands.Add(new SemanticResultValue("volume down", "VOLUME DOWN"));
 
                 var gb = new GrammarBuilder { Culture = ri.Culture };
                 gb.Append(commands);
@@ -192,6 +194,12 @@ namespace SpotifyKinectInterface
                         break;
                     case "MUTE":
                         Console.WriteLine("Mute");
+                        break;
+                    case "VOLUME UP":
+                        Console.WriteLine("Volume up");
+                        break;
+                    case "VOLUME DOWN":
+                        Console.WriteLine("Volume down");
                         break;
                 }
             }
