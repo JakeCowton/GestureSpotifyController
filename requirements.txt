@@ -1,1 +1,2 @@
-nympy==1.9.1
+Kinect SDK == 1.8
+Speech SDK == 11.0
