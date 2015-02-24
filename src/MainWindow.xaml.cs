@@ -13,8 +13,8 @@ namespace SpotifyKinectInterface
     using System.Windows.Media;
     using System.ComponentModel;
     using Microsoft.Kinect;
-    using Microsoft.Speech.AudioFormat;
-    using Microsoft.Speech.Recognition;
+    using SpotifyKinectInterface.VoiceControl;
+
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -82,9 +82,9 @@ namespace SpotifyKinectInterface
         private KinectSensor sensor;
 
         /// <summary>
-        /// Speech recognition engine using audio data from Kinect.
+        /// The voice control engine
         /// </summary>
-        private SpeechRecognitionEngine speechEngine;
+        private VoiceControlEngine vc;
 
         /// <summary>
         /// Drawing group for skeleton rendering output
@@ -145,36 +145,12 @@ namespace SpotifyKinectInterface
         }
 
         /// <summary>
-        /// Gets the metadata for the speech recognizer (acoustic model) most suitable to
-        /// process audio from Kinect device.
-        /// </summary>
-        /// <returns>
-        /// RecognizerInfo if found, <code>null</code> otherwise.
-        /// </returns>
-        private static RecognizerInfo GetKinectRecognizer()
-        {
-            foreach (RecognizerInfo recognizer in SpeechRecognitionEngine.InstalledRecognizers())
-            {
-                string value;
-                recognizer.AdditionalInfo.TryGetValue("Kinect", out value);
-                if ("True".Equals(value, StringComparison.OrdinalIgnoreCase) && "en-US".Equals(recognizer.Culture.Name, StringComparison.OrdinalIgnoreCase))
-                {
-                    return recognizer;
-                }
-            }
-
-            return null;
-        }
-
-        /// <summary>
         /// Execute startup tasks
         /// </summary>
         /// <param name="sender">object sending the event</param>
         /// <param name="e">event arguments</param>
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
-            ANN.TestMLP mlpTester = new ANN.TestMLP();
-
             // Create the drawing group we'll use for drawing
             this.drawingGroup = new DrawingGroup();
 
@@ -221,47 +197,8 @@ namespace SpotifyKinectInterface
                 this.statusBarText.Text = Properties.Resources.NoKinectReady;
             }
 
-            RecognizerInfo ri = GetKinectRecognizer();
-
-            if (null != ri)
-            {
-
-                this.speechEngine = new SpeechRecognitionEngine(ri.Id);
-
-                //Use this code to create grammar programmatically rather than from
-                //a grammar file.
-
-                var commands = new Choices();
-                commands.Add(new SemanticResultValue("play", "PLAY"));
-                commands.Add(new SemanticResultValue("pause", "PAUSE"));
-                commands.Add(new SemanticResultValue("next", "NEXT"));
-                commands.Add(new SemanticResultValue("previous", "PREVIOUS"));
-                commands.Add(new SemanticResultValue("mute", "MUTE"));
-                commands.Add(new SemanticResultValue("volume up", "VOLUME UP"));
-                commands.Add(new SemanticResultValue("volume down", "VOLUME DOWN"));
-
-                var gb = new GrammarBuilder { Culture = ri.Culture };
-                gb.Append(commands);
-
-                var g = new Grammar(gb);
-
-                speechEngine.LoadGrammar(g);
-
-                speechEngine.SpeechRecognized += SpeechRecognized;
-                speechEngine.SpeechRecognitionRejected += SpeechRejected;
-
-                // For long recognition sessions (a few hours or more), it may be beneficial to turn off adaptation of the acoustic model. 
-                // This will prevent recognition accuracy from degrading over time.
-                ////speechEngine.UpdateRecognizerSetting("AdaptationOn", 0);
-
-                speechEngine.SetInputToAudioStream(
-                    sensor.AudioSource.Start(), new SpeechAudioFormatInfo(EncodingFormat.Pcm, 16000, 16, 1, 32000, 2, null));
-                speechEngine.RecognizeAsync(RecognizeMode.Multiple);
-            }
-            else
-            {
-                throw new Exception();
-            }
+            vc = new VoiceControlEngine(sensor);
+            vc.voiceRec();
 
         }
 
@@ -280,61 +217,8 @@ namespace SpotifyKinectInterface
                 this.sensor = null;
             }
 
-            if (null != this.speechEngine)
-            {
-                this.speechEngine.SpeechRecognized -= SpeechRecognized;
-                this.speechEngine.SpeechRecognitionRejected -= SpeechRejected;
-                this.speechEngine.RecognizeAsyncStop();
-            }
-        }
+            this.vc.kill();
 
-        /// <summary>
-        /// Handler for recognized speech events.
-        /// </summary>
-        /// <param name="sender">object sending the event.</param>
-        /// <param name="e">event arguments.</param>
-        private void SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
-        {
-            // Speech utterance confidence below which we treat speech as if it hadn't been heard
-            const double ConfidenceThreshold = 0.3;
-
-            if (e.Result.Confidence >= ConfidenceThreshold)
-            {
-                switch (e.Result.Semantics.Value.ToString())
-                {
-                    case "PLAY":
-                        Console.WriteLine("Play");
-                        break;
-                    case "PAUSE":
-                        Console.WriteLine("Pause");
-                        break;
-                    case "NEXT":
-                        Console.WriteLine("Next");
-                        break;
-                    case "PREVIOUS":
-                        Console.WriteLine("Previous");
-                        break;
-                    case "MUTE":
-                        Console.WriteLine("Mute");
-                        break;
-                    case "VOLUME UP":
-                        Console.WriteLine("Volume up");
-                        break;
-                    case "VOLUME DOWN":
-                        Console.WriteLine("Volume down");
-                        break;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Handler for rejected speech events.
-        /// </summary>
-        /// <param name="sender">object sending the event.</param>
-        /// <param name="e">event arguments.</param>
-        private void SpeechRejected(object sender, SpeechRecognitionRejectedEventArgs e)
-        {
-            Console.WriteLine("Rejected");
         }
 
         /// <summary>
@@ -529,11 +413,11 @@ namespace SpotifyKinectInterface
 
                 if (joint.TrackingState == JointTrackingState.Tracked)
                 {
-                    drawBrush = this.trackedJointBrush;                    
+                    drawBrush = this.trackedJointBrush;
                 }
                 else if (joint.TrackingState == JointTrackingState.Inferred)
                 {
-                    drawBrush = this.inferredJointBrush;                    
+                    drawBrush = this.inferredJointBrush;
                 }
 
                 if (drawBrush != null)
