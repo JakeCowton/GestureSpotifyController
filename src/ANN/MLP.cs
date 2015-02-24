@@ -6,36 +6,80 @@ using System.Threading.Tasks;
 
 namespace ANN
 {
+    /// <summary>
+    /// Implements the main Multi-Layer Perceptron
+    /// </summary>
     class MLP
     {
-        private int numInputs;
+        /// <summary>
+        /// The number of input nodes
+        /// </summary>
         private int numInputValues;
+
+        /// <summary>
+        /// The number of output nodes
+        /// </summary>
         private int numOutputs;
+
+        /// <summary>
+        /// The number of hidden nodes
+        /// </summary>
         private int numHiddenNodes;
 
-        private float[,] trainingSet;
-        private float[,] testingSet;
-
+        /// <summary>
+        /// The learning rate of the MLP
+        /// </summary>
         private float learningRate;
+
+        /// <summary>
+        /// The momentum factor of the MLP
+        /// </summary>
         private float momentumFactor;
 
+        /// <summary>
+        /// Instance of the neural network
+        /// </summary>
         private NeuralNetwork neuralNetwork;
 
-        public MLP(int numInputs, int numInputValues, int numOutputs, int numHiddenNodes, float learningRate, float momentumFactor, float[,] trainingSet)
+        /// <summary>
+        /// Constructor to create neural network using passed parameters
+        /// </summary>
+        /// <param name="numInputValues">
+        /// Number of input nodes
+        /// </param>
+        /// <param name="numOutputs">
+        /// Number of output nodes
+        /// </param>
+        /// <param name="numHiddenNodes">
+        /// Number of hidden nodes
+        /// </param>
+        /// <param name="learningRate">
+        /// Learning rate of network
+        /// </param>
+        /// <param name="momentumFactor">
+        /// Momentum factor of network
+        /// </param>
+        public MLP(int numInputValues, int numOutputs, int numHiddenNodes, float learningRate, float momentumFactor)
         {
-            this.numInputs = numInputs;
             this.numInputValues = numInputValues;
             this.numOutputs = numOutputs;
             this.numHiddenNodes = numHiddenNodes;
             this.learningRate = learningRate;
             this.momentumFactor = momentumFactor;
 
-            this.trainingSet = trainingSet;
-
             neuralNetwork = new NeuralNetwork(numInputValues, numHiddenNodes, numOutputs, learningRate, momentumFactor);
         }
 
-        public void TrainNetwork()
+        /// <summary>
+        /// Train the neural network, providing the number of training data runs and a 2d array of data
+        /// </summary>
+        /// <param name="numInputs">
+        /// Number of training data runs
+        /// </param>
+        /// <param name="trainingSet">
+        /// 2d array of training data
+        /// </param>
+        public void TrainNetwork(int numInputs, float[,] trainingSet)
         {
             float error = 1F;
             int count = 0;
@@ -65,10 +109,17 @@ namespace ANN
             }
         }
 
+        /// <summary>
+        /// Test the neural network providing the number of test runs and a 2d array of test data
+        /// </summary>
+        /// <param name="numInputs">
+        /// Number of test runs
+        /// </param>
+        /// <param name="testingSet">
+        /// 2d array of test data
+        /// </param>
         public void TestNetwork(int numInputs, float[,] testingSet)
         {
-            this.numInputs = numInputs;
-            this.testingSet = testingSet;
             for (int i = 0; i < numInputs; i++)
             {
                 Console.WriteLine(i + 1 + ":");
@@ -81,21 +132,18 @@ namespace ANN
                     neuralNetwork.SetInput(j, testingSet[i, j]);
                 }
                 neuralNetwork.FeedForward();
-
-                //float max = -1000.0F;
-                //int index = -1000;
-                //for (int j = 0; j < numOutputs; j++)
-                //{
-                //    Console.WriteLine(neuralNetwork.GetOutput(j));
-                //    if (max < neuralNetwork.GetOutput(j))
-                //    {
-                //        max = neuralNetwork.GetOutput(j);
-                //        index = j;
-                //    }
-                //}
             }
         }
 
+        /// <summary>
+        /// Recall the network
+        /// </summary>
+        /// <param name="data">
+        /// Data to run through the network
+        /// </param>
+        /// <returns>
+        /// 1d array of output values
+        /// </returns>
         public float[] RecallNetwork(float[] data)
         {
             for (int i = 0; i < numInputValues; i++)
