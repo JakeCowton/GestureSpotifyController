@@ -16,7 +16,6 @@ namespace SpotifyKinectInterface
     using Microsoft.Speech.AudioFormat;
     using Microsoft.Speech.Recognition;
 
-
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -174,6 +173,8 @@ namespace SpotifyKinectInterface
         /// <param name="e">event arguments</param>
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
+            ANN.TestMLP mlpTester = new ANN.TestMLP();
+
             // Create the drawing group we'll use for drawing
             this.drawingGroup = new DrawingGroup();
 
