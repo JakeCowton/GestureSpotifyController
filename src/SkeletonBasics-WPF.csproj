@@ -115,6 +115,12 @@
     <Resource Include="Images\UncheckedHover.png" />
     <Resource Include="Images\UncheckedNormal.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="ANN\ANN.csproj">
+      <Project>{93383d78-053b-4995-900d-93e94d254648}</Project>
+      <Name>ANN</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
