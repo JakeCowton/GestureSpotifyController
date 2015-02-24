@@ -120,6 +120,10 @@
       <Project>{93383d78-053b-4995-900d-93e94d254648}</Project>
       <Name>ANN</Name>
     </ProjectReference>
+    <ProjectReference Include="VoiceControl\VoiceControl.csproj">
+      <Project>{ff239b1d-50b4-4768-b012-4d2f893ae56f}</Project>
+      <Name>VoiceControl</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
