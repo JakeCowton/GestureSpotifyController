@@ -24,7 +24,7 @@ namespace ANN
         /// <summary>
         /// The number of hidden nodes
         /// </summary>
-        private int numHiddenNodes;
+        private int[] numHiddenNodes;
 
         /// <summary>
         /// The learning rate of the MLP
@@ -51,7 +51,7 @@ namespace ANN
         /// Number of output nodes
         /// </param>
         /// <param name="numHiddenNodes">
-        /// Number of hidden nodes
+        /// Array of the number of hidden nodes in each hidden layer
         /// </param>
         /// <param name="learningRate">
         /// Learning rate of network
@@ -59,7 +59,7 @@ namespace ANN
         /// <param name="momentumFactor">
         /// Momentum factor of network
         /// </param>
-        public MLP(int numInputValues, int numOutputs, int numHiddenNodes, float learningRate, float momentumFactor)
+        public MLP(int numInputValues, int numOutputs, int[] numHiddenNodes, float learningRate, float momentumFactor)
         {
             this.numInputValues = numInputValues;
             this.numOutputs = numOutputs;

@@ -18,16 +18,19 @@ namespace ANN
         private NeuronLayer inputLayer;
 
         /// <summary>
-        /// The hidden layer of the MLP
+        /// Array of all layers of the MLP
         /// </summary>
-        private NeuronLayer hiddenLayer;
-
-        // TODO: Modify this class to allow multiple hidden layers (SHOULD be minor changes to this class only)
+        private NeuronLayer[] allLayers;
 
         /// <summary>
         /// The output layer of the MLP
         /// </summary>
         private NeuronLayer outputLayer;
+
+        /// <summary>
+        /// The number of hidden layers in the MLP
+        /// </summary>
+        private int numberHiddenLayers;
 
         /// <summary>
         /// Constructor for the neural network class
@@ -36,7 +39,7 @@ namespace ANN
         /// The number of nodes in the input layer
         /// </param>
         /// <param name="numberHiddenNodes">
-        /// The number of nodes in the hidden layer
+        /// An array of the number of hidden nodes in each hidden layer
         /// </param>
         /// <param name="numberOutputs">
         /// The number of nodes in the output layer
@@ -47,15 +50,26 @@ namespace ANN
         /// <param name="momentumFactor">
         /// The momentum factor of the network
         /// </param>
-        public NeuralNetwork(int numberInputs, int numberHiddenNodes, int numberOutputs, float learningRate, float momentumFactor)
+        public NeuralNetwork(int numberInputs, int[] numberHiddenNodes, int numberOutputs, float learningRate, float momentumFactor)
         {
-            inputLayer = new NeuronLayer(numberInputs, numberHiddenNodes, 0, learningRate, momentumFactor);
-            hiddenLayer = new NeuronLayer(numberHiddenNodes, numberOutputs, numberInputs, learningRate, momentumFactor);
-            outputLayer = new NeuronLayer(numberOutputs, 0, numberHiddenNodes, learningRate, momentumFactor);
+            this.numberHiddenLayers = numberHiddenNodes.Length;
+            allLayers = new NeuronLayer[numberHiddenLayers + 2];
+            for (int i = 0; i < numberHiddenLayers + 2; i++)
+            {
+                if (i == 0)
+                    inputLayer = allLayers[i] = new NeuronLayer(numberInputs, numberHiddenNodes[i], 0, learningRate, momentumFactor);
+                else if (i < numberHiddenLayers)
+                    allLayers[i] = new NeuronLayer(numberHiddenNodes[i - 1], numberHiddenNodes[i], allLayers[i - 1].GetNumberNodes(), learningRate, momentumFactor);
+                else if (i < numberHiddenLayers + 1)
+                    allLayers[i] = new NeuronLayer(numberHiddenNodes[i - 1], numberOutputs, allLayers[i - 1].GetNumberNodes(), learningRate, momentumFactor);
+                else
+                    outputLayer = allLayers[i] = new NeuronLayer(numberOutputs, 0, allLayers[i - 1].GetNumberNodes(), learningRate, momentumFactor);
+            }
 
-            inputLayer.Initialise(null, hiddenLayer);
-            hiddenLayer.Initialise(inputLayer, outputLayer);
-            outputLayer.Initialise(hiddenLayer, null);
+            inputLayer.Initialise(null, allLayers[1]);
+            for (int i = 1; i < numberHiddenLayers + 1; i++)
+                allLayers[i].Initialise(allLayers[i - 1], allLayers[i + 1]);
+            outputLayer.Initialise(allLayers[numberHiddenLayers], null);
         }
 
         /// <summary>
@@ -91,9 +105,8 @@ namespace ANN
         /// </summary>
         public void FeedForward()
         {
-            inputLayer.CalculateNeuronValues();
-            hiddenLayer.CalculateNeuronValues();
-            outputLayer.CalculateNeuronValues();
+            for (int i = 0; i < numberHiddenLayers + 2; i++)
+                allLayers[i].CalculateNeuronValues();
         }
 
         /// <summary>
@@ -121,11 +134,11 @@ namespace ANN
         /// </summary>
         public void BackPropagate()
         {
-            outputLayer.CalculateErrors();
-            hiddenLayer.CalculateErrors();
+            for (int i = numberHiddenLayers + 1; i > 0; i--)
+                allLayers[i].CalculateErrors();
 
-            hiddenLayer.AdjustWeights();
-            inputLayer.AdjustWeights();
+            for (int i = numberHiddenLayers; i >= 0; i--)
+                allLayers[i].AdjustWeights();
         }
 
         /// <summary>
