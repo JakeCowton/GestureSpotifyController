@@ -281,46 +281,27 @@ namespace SpotifyKinectInterface
         /// <param name="skeleton">skeleton to dump joint data for</param>
         private void DumpJointData(Skeleton skeleton)
         {
-            using (FileStream fs = new FileStream("C:\\Users\\Jake\\Desktop\\skeleton.txt", FileMode.Append, FileAccess.Write))
+            using (FileStream fs = new FileStream("C:\\Users\\Jake\\Desktop\\skeleton-mute.txt", FileMode.Append, FileAccess.Write))
             using (StreamWriter sw = new StreamWriter(fs))
             {
-                sw.Write("Head: ");
-                sw.WriteLine(this.SkeletonPointToScreen(skeleton.Joints[JointType.Head].Position));
-                sw.Write("Shoulder centre: ");
-                sw.WriteLine(this.SkeletonPointToScreen(skeleton.Joints[JointType.ShoulderCenter].Position));
-                sw.Write("Shoulder left: ");
-                sw.WriteLine(this.SkeletonPointToScreen(skeleton.Joints[JointType.ShoulderLeft].Position));
-                sw.Write("Shoulder right: ");
-                sw.WriteLine(this.SkeletonPointToScreen(skeleton.Joints[JointType.ShoulderRight].Position));
-                sw.Write("Spine: ");
-                sw.WriteLine(this.SkeletonPointToScreen(skeleton.Joints[JointType.Spine].Position));
-                sw.Write("Hip centre: ");
-                sw.WriteLine(this.SkeletonPointToScreen(skeleton.Joints[JointType.HipCenter].Position));
-                sw.Write("Hip left: ");
-                sw.WriteLine(this.SkeletonPointToScreen(skeleton.Joints[JointType.HipLeft].Position));
-                sw.Write("Hip right: ");
-                sw.WriteLine(this.SkeletonPointToScreen(skeleton.Joints[JointType.HipRight].Position));
-                sw.Write("Elbow left: ");
-                sw.WriteLine(this.SkeletonPointToScreen(skeleton.Joints[JointType.ElbowLeft].Position));
-                sw.Write("Elbow right: ");
-                sw.WriteLine(this.SkeletonPointToScreen(skeleton.Joints[JointType.ElbowRight].Position));
-                sw.Write("Wrist left: ");
-                sw.WriteLine(this.SkeletonPointToScreen(skeleton.Joints[JointType.WristLeft].Position));
-                sw.Write("Wrist right: ");
-                sw.WriteLine(this.SkeletonPointToScreen(skeleton.Joints[JointType.WristRight].Position));
-                sw.Write("Hand left: ");
-                sw.WriteLine(this.SkeletonPointToScreen(skeleton.Joints[JointType.HandLeft].Position));
-                sw.Write("Hand right: ");
-                sw.WriteLine(this.SkeletonPointToScreen(skeleton.Joints[JointType.HandRight].Position));
-                sw.Write("Knee left: ");
-                sw.WriteLine(this.SkeletonPointToScreen(skeleton.Joints[JointType.KneeLeft].Position));
-                sw.Write("Knee right: ");
-                sw.WriteLine(this.SkeletonPointToScreen(skeleton.Joints[JointType.KneeRight].Position));
-                sw.Write("Ankle left: ");
-                sw.WriteLine(this.SkeletonPointToScreen(skeleton.Joints[JointType.AnkleLeft].Position));
-                sw.Write("Ankle right: ");
-                sw.WriteLine(this.SkeletonPointToScreen(skeleton.Joints[JointType.AnkleRight].Position));
-                sw.WriteLine("***************************************************************************");
+                sw.Write(skeleton.Joints[JointType.Head].Position.X + " , " + skeleton.Joints[JointType.Head].Position.Y + " , " + skeleton.Joints[JointType.Head].Position.Z + " , ");
+                sw.Write(skeleton.Joints[JointType.ShoulderCenter].Position.X + " , " + skeleton.Joints[JointType.ShoulderCenter].Position.Y + " , " + skeleton.Joints[JointType.ShoulderCenter].Position.Z + " , ");
+                sw.Write(skeleton.Joints[JointType.ShoulderLeft].Position.X + " , " + skeleton.Joints[JointType.ShoulderLeft].Position.Y + " , " + skeleton.Joints[JointType.ShoulderLeft].Position.Z + " , ");
+                sw.Write(skeleton.Joints[JointType.ShoulderRight].Position.X + " , " + skeleton.Joints[JointType.ShoulderRight].Position.Y + " , " + skeleton.Joints[JointType.ShoulderRight].Position.Z + " , ");
+                sw.Write(skeleton.Joints[JointType.Spine].Position.X + " , " + skeleton.Joints[JointType.Spine].Position.Y + " , " + skeleton.Joints[JointType.Spine].Position.Z + " , ");
+                sw.Write(skeleton.Joints[JointType.HipCenter].Position.X + " , " + skeleton.Joints[JointType.HipCenter].Position.Y + " , " + skeleton.Joints[JointType.HipCenter].Position.Z + " , ");
+                sw.Write(skeleton.Joints[JointType.HipLeft].Position.X + " , " + skeleton.Joints[JointType.HipLeft].Position.Y + " , " + skeleton.Joints[JointType.HipLeft].Position.Z + " , ");
+                sw.Write(skeleton.Joints[JointType.HipRight].Position.X + " , " + skeleton.Joints[JointType.HipRight].Position.Y + " , " + skeleton.Joints[JointType.HipRight].Position.Z + " , ");
+                sw.Write(skeleton.Joints[JointType.ElbowLeft].Position.X + " , " + skeleton.Joints[JointType.ElbowLeft].Position.Y + " , " + skeleton.Joints[JointType.ElbowLeft].Position.Z + " , ");
+                sw.Write(skeleton.Joints[JointType.ElbowRight].Position.X + " , " + skeleton.Joints[JointType.ElbowRight].Position.Y + " , " + skeleton.Joints[JointType.ElbowRight].Position.Z + " , ");
+                sw.Write(skeleton.Joints[JointType.WristLeft].Position.X + " , " + skeleton.Joints[JointType.WristLeft].Position.Y + " , " + skeleton.Joints[JointType.WristLeft].Position.Z + " , ");
+                sw.Write(skeleton.Joints[JointType.WristRight].Position.X + " , " + skeleton.Joints[JointType.WristRight].Position.Y + " , " + skeleton.Joints[JointType.WristRight].Position.Z + " , ");
+                sw.Write(skeleton.Joints[JointType.HandLeft].Position.X + " , " + skeleton.Joints[JointType.HandLeft].Position.Y + " , " + skeleton.Joints[JointType.HandLeft].Position.Z + " , ");
+                sw.Write(skeleton.Joints[JointType.HandRight].Position.X + " , " + skeleton.Joints[JointType.HandRight].Position.Y + " , " + skeleton.Joints[JointType.HandRight].Position.Z + " , ");
+                sw.Write(skeleton.Joints[JointType.KneeLeft].Position.X + " , " + skeleton.Joints[JointType.KneeLeft].Position.Y + " , " + skeleton.Joints[JointType.KneeLeft].Position.Z + " , ");
+                sw.Write(skeleton.Joints[JointType.KneeRight].Position.X + " , " + skeleton.Joints[JointType.KneeRight].Position.Y + " , " + skeleton.Joints[JointType.KneeRight].Position.Z + " , ");
+                sw.Write(skeleton.Joints[JointType.AnkleLeft].Position.X + " , " + skeleton.Joints[JointType.AnkleLeft].Position.Y + " , " + skeleton.Joints[JointType.AnkleLeft].Position.Z + " , ");
+                sw.WriteLine(skeleton.Joints[JointType.AnkleRight].Position.X + " , " + skeleton.Joints[JointType.AnkleRight].Position.Y + " , " + skeleton.Joints[JointType.AnkleRight].Position.Z);
             }
         }
 
@@ -379,7 +360,7 @@ namespace SpotifyKinectInterface
                     drawingContext.DrawEllipse(drawBrush, null, this.SkeletonPointToScreen(joint.Position), JointThickness, JointThickness);
                 }
             }
-            if (debugCounter % 100 == 0)
+            if (debugCounter % 10 == 0)
             {
                 this.DumpJointData(skeleton);
             }
