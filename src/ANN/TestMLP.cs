@@ -32,9 +32,10 @@ namespace ANN
         /// </summary>
         public TestMLP()
         {
+            int[] numberLayers = {7, 7, 10, 7};
             trainingSet = new float[1, 37] { { 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F } };
             testingSet = new float[1, 37] { { 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F } };
-            nn = new MLP(30, 7, 15, 0.2F, 0.9F);
+            nn = new MLP(30, 7, numberLayers, 0.2F, 0.9F);
 
             nn.TrainNetwork(1, trainingSet);
             nn.TestNetwork(1, testingSet);
