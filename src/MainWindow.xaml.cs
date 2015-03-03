@@ -281,97 +281,28 @@ namespace SpotifyKinectInterface
         /// <param name="skeleton">skeleton to dump joint data for</param>
         private void DumpJointData(Skeleton skeleton)
         {
-            System.Diagnostics.Debug.WriteLine("Head: ");
-            System.Diagnostics.Debug.Write("Mapped to drawing area co-ords: ");
-            System.Diagnostics.Debug.WriteLine(this.SkeletonPointToScreen(skeleton.Joints[JointType.Head].Position));
-            System.Diagnostics.Debug.Write("X, Y, Z co-ords in skeleton space: ");
-            System.Diagnostics.Debug.WriteLine(skeleton.Joints[JointType.Head].Position.X + " ; " + skeleton.Joints[JointType.Head].Position.X + " ; " + skeleton.Joints[JointType.Head].Position.X);
-            System.Diagnostics.Debug.WriteLine("Shoulder centre: ");
-            System.Diagnostics.Debug.Write("Mapped to drawing area co-ords: ");
-            System.Diagnostics.Debug.WriteLine(this.SkeletonPointToScreen(skeleton.Joints[JointType.ShoulderCenter].Position));
-            System.Diagnostics.Debug.Write("X, Y, Z co-ords in skeleton space: ");
-            System.Diagnostics.Debug.WriteLine(skeleton.Joints[JointType.ShoulderCenter].Position.X + " ; " + skeleton.Joints[JointType.ShoulderCenter].Position.X + " ; " + skeleton.Joints[JointType.ShoulderCenter].Position.X);
-            System.Diagnostics.Debug.WriteLine("Shoulder left: ");
-            System.Diagnostics.Debug.Write("Mapped to drawing area co-ords: ");
-            System.Diagnostics.Debug.WriteLine(this.SkeletonPointToScreen(skeleton.Joints[JointType.ShoulderLeft].Position));
-            System.Diagnostics.Debug.Write("X, Y, Z co-ords in skeleton space: ");
-            System.Diagnostics.Debug.WriteLine(skeleton.Joints[JointType.ShoulderLeft].Position.X + " ; " + skeleton.Joints[JointType.ShoulderLeft].Position.X + " ; " + skeleton.Joints[JointType.ShoulderLeft].Position.X);
-            System.Diagnostics.Debug.WriteLine("Shoulder right: ");
-            System.Diagnostics.Debug.Write("Mapped to drawing area co-ords: ");
-            System.Diagnostics.Debug.WriteLine(this.SkeletonPointToScreen(skeleton.Joints[JointType.ShoulderRight].Position));
-            System.Diagnostics.Debug.Write("X, Y, Z co-ords in skeleton space: ");
-            System.Diagnostics.Debug.WriteLine(skeleton.Joints[JointType.ShoulderRight].Position.X + " ; " + skeleton.Joints[JointType.ShoulderRight].Position.X + " ; " + skeleton.Joints[JointType.ShoulderRight].Position.X);
-            System.Diagnostics.Debug.WriteLine("Spine: ");
-            System.Diagnostics.Debug.Write("Mapped to drawing area co-ords: ");
-            System.Diagnostics.Debug.WriteLine(this.SkeletonPointToScreen(skeleton.Joints[JointType.Spine].Position));
-            System.Diagnostics.Debug.Write("X, Y, Z co-ords in skeleton space: ");
-            System.Diagnostics.Debug.WriteLine(skeleton.Joints[JointType.Spine].Position.X + " ; " + skeleton.Joints[JointType.Spine].Position.X + " ; " + skeleton.Joints[JointType.Spine].Position.X);
-            System.Diagnostics.Debug.WriteLine("Hip centre: ");
-            System.Diagnostics.Debug.Write("Mapped to drawing area co-ords: ");
-            System.Diagnostics.Debug.WriteLine(this.SkeletonPointToScreen(skeleton.Joints[JointType.HipCenter].Position));
-            System.Diagnostics.Debug.Write("X, Y, Z co-ords in skeleton space: ");
-            System.Diagnostics.Debug.WriteLine(skeleton.Joints[JointType.HipCenter].Position.X + " ; " + skeleton.Joints[JointType.HipCenter].Position.X + " ; " + skeleton.Joints[JointType.HipCenter].Position.X);
-            System.Diagnostics.Debug.WriteLine("Hip left: ");
-            System.Diagnostics.Debug.Write("Mapped to drawing area co-ords: ");
-            System.Diagnostics.Debug.WriteLine(this.SkeletonPointToScreen(skeleton.Joints[JointType.HipLeft].Position));
-            System.Diagnostics.Debug.Write("X, Y, Z co-ords in skeleton space: ");
-            System.Diagnostics.Debug.WriteLine(skeleton.Joints[JointType.HipLeft].Position.X + " ; " + skeleton.Joints[JointType.HipLeft].Position.X + " ; " + skeleton.Joints[JointType.HipLeft].Position.X);
-            System.Diagnostics.Debug.WriteLine("Hip right: ");
-            System.Diagnostics.Debug.Write("Mapped to drawing area co-ords: ");
-            System.Diagnostics.Debug.WriteLine(this.SkeletonPointToScreen(skeleton.Joints[JointType.HipRight].Position));
-            System.Diagnostics.Debug.Write("X, Y, Z co-ords in skeleton space: ");
-            System.Diagnostics.Debug.WriteLine(skeleton.Joints[JointType.HipRight].Position.X + " ; " + skeleton.Joints[JointType.HipRight].Position.X + " ; " + skeleton.Joints[JointType.HipRight].Position.X);
-            System.Diagnostics.Debug.WriteLine("Elbow left: ");
-            System.Diagnostics.Debug.Write("Mapped to drawing area co-ords: ");
-            System.Diagnostics.Debug.WriteLine(this.SkeletonPointToScreen(skeleton.Joints[JointType.ElbowLeft].Position));
-            System.Diagnostics.Debug.Write("X, Y, Z co-ords in skeleton space: ");
-            System.Diagnostics.Debug.WriteLine(skeleton.Joints[JointType.ElbowLeft].Position.X + " ; " + skeleton.Joints[JointType.ElbowLeft].Position.X + " ; " + skeleton.Joints[JointType.ElbowLeft].Position.X);
-            System.Diagnostics.Debug.WriteLine("Elbow right: ");
-            System.Diagnostics.Debug.Write("Mapped to drawing area co-ords: ");
-            System.Diagnostics.Debug.WriteLine(this.SkeletonPointToScreen(skeleton.Joints[JointType.ElbowRight].Position));
-            System.Diagnostics.Debug.Write("X, Y, Z co-ords in skeleton space: ");
-            System.Diagnostics.Debug.WriteLine(skeleton.Joints[JointType.ElbowRight].Position.X + " ; " + skeleton.Joints[JointType.ElbowRight].Position.X + " ; " + skeleton.Joints[JointType.ElbowRight].Position.X);
-            System.Diagnostics.Debug.WriteLine("Wrist left: ");
-            System.Diagnostics.Debug.Write("Mapped to drawing area co-ords: ");
-            System.Diagnostics.Debug.WriteLine(this.SkeletonPointToScreen(skeleton.Joints[JointType.WristLeft].Position));
-            System.Diagnostics.Debug.Write("X, Y, Z co-ords in skeleton space: ");
-            System.Diagnostics.Debug.WriteLine(skeleton.Joints[JointType.WristLeft].Position.X + " ; " + skeleton.Joints[JointType.WristLeft].Position.X + " ; " + skeleton.Joints[JointType.WristLeft].Position.X);
-            System.Diagnostics.Debug.WriteLine("Wrist right: ");
-            System.Diagnostics.Debug.Write("Mapped to drawing area co-ords: ");
-            System.Diagnostics.Debug.WriteLine(this.SkeletonPointToScreen(skeleton.Joints[JointType.WristRight].Position));
-            System.Diagnostics.Debug.Write("X, Y, Z co-ords in skeleton space: ");
-            System.Diagnostics.Debug.WriteLine(skeleton.Joints[JointType.WristRight].Position.X + " ; " + skeleton.Joints[JointType.WristRight].Position.X + " ; " + skeleton.Joints[JointType.WristRight].Position.X);
-            System.Diagnostics.Debug.WriteLine("Hand left: ");
-            System.Diagnostics.Debug.Write("Mapped to drawing area co-ords: ");
-            System.Diagnostics.Debug.WriteLine(this.SkeletonPointToScreen(skeleton.Joints[JointType.HandLeft].Position));
-            System.Diagnostics.Debug.Write("X, Y, Z co-ords in skeleton space: ");
-            System.Diagnostics.Debug.WriteLine(skeleton.Joints[JointType.HandLeft].Position.X + " ; " + skeleton.Joints[JointType.HandLeft].Position.X + " ; " + skeleton.Joints[JointType.HandLeft].Position.X);
-            System.Diagnostics.Debug.WriteLine("Hand right: ");
-            System.Diagnostics.Debug.Write("Mapped to drawing area co-ords: ");
-            System.Diagnostics.Debug.WriteLine(this.SkeletonPointToScreen(skeleton.Joints[JointType.HandRight].Position));
-            System.Diagnostics.Debug.Write("X, Y, Z co-ords in skeleton space: ");
-            System.Diagnostics.Debug.WriteLine(skeleton.Joints[JointType.HandRight].Position.X + " ; " + skeleton.Joints[JointType.HandRight].Position.X + " ; " + skeleton.Joints[JointType.HandRight].Position.X);
-            System.Diagnostics.Debug.WriteLine("Knee left: ");
-            System.Diagnostics.Debug.Write("Mapped to drawing area co-ords: ");
-            System.Diagnostics.Debug.WriteLine(this.SkeletonPointToScreen(skeleton.Joints[JointType.KneeLeft].Position));
-            System.Diagnostics.Debug.Write("X, Y, Z co-ords in skeleton space: ");
-            System.Diagnostics.Debug.WriteLine(skeleton.Joints[JointType.KneeLeft].Position.X + " ; " + skeleton.Joints[JointType.KneeLeft].Position.X + " ; " + skeleton.Joints[JointType.KneeLeft].Position.X);
-            System.Diagnostics.Debug.WriteLine("Knee right: ");
-            System.Diagnostics.Debug.Write("Mapped to drawing area co-ords: ");
-            System.Diagnostics.Debug.WriteLine(this.SkeletonPointToScreen(skeleton.Joints[JointType.KneeRight].Position));
-            System.Diagnostics.Debug.Write("X, Y, Z co-ords in skeleton space: ");
-            System.Diagnostics.Debug.WriteLine(skeleton.Joints[JointType.KneeRight].Position.X + " ; " + skeleton.Joints[JointType.KneeRight].Position.X + " ; " + skeleton.Joints[JointType.KneeRight].Position.X);
-            System.Diagnostics.Debug.WriteLine("Ankle left: ");
-            System.Diagnostics.Debug.Write("Mapped to drawing area co-ords: ");
-            System.Diagnostics.Debug.WriteLine(this.SkeletonPointToScreen(skeleton.Joints[JointType.AnkleLeft].Position));
-            System.Diagnostics.Debug.Write("X, Y, Z co-ords in skeleton space: ");
-            System.Diagnostics.Debug.WriteLine(skeleton.Joints[JointType.AnkleLeft].Position.X + " ; " + skeleton.Joints[JointType.AnkleLeft].Position.X + " ; " + skeleton.Joints[JointType.AnkleLeft].Position.X);
-            System.Diagnostics.Debug.WriteLine("Ankle right: ");
-            System.Diagnostics.Debug.Write("Mapped to drawing area co-ords: ");
-            System.Diagnostics.Debug.WriteLine(this.SkeletonPointToScreen(skeleton.Joints[JointType.AnkleRight].Position));
-            System.Diagnostics.Debug.Write("X, Y, Z co-ords in skeleton space: ");
-            System.Diagnostics.Debug.WriteLine(skeleton.Joints[JointType.AnkleRight].Position.X + " ; " + skeleton.Joints[JointType.AnkleRight].Position.X + " ; " + skeleton.Joints[JointType.AnkleRight].Position.X);
-            System.Diagnostics.Debug.WriteLine("***************************************************************************");
+            using (FileStream fs = new FileStream("C:\\Users\\Jake\\Desktop\\skeleton-mute.txt", FileMode.Append, FileAccess.Write))
+            using (StreamWriter sw = new StreamWriter(fs))
+            {
+                sw.Write(skeleton.Joints[JointType.Head].Position.X + " , " + skeleton.Joints[JointType.Head].Position.Y + " , " + skeleton.Joints[JointType.Head].Position.Z + " , ");
+                sw.Write(skeleton.Joints[JointType.ShoulderCenter].Position.X + " , " + skeleton.Joints[JointType.ShoulderCenter].Position.Y + " , " + skeleton.Joints[JointType.ShoulderCenter].Position.Z + " , ");
+                sw.Write(skeleton.Joints[JointType.ShoulderLeft].Position.X + " , " + skeleton.Joints[JointType.ShoulderLeft].Position.Y + " , " + skeleton.Joints[JointType.ShoulderLeft].Position.Z + " , ");
+                sw.Write(skeleton.Joints[JointType.ShoulderRight].Position.X + " , " + skeleton.Joints[JointType.ShoulderRight].Position.Y + " , " + skeleton.Joints[JointType.ShoulderRight].Position.Z + " , ");
+                sw.Write(skeleton.Joints[JointType.Spine].Position.X + " , " + skeleton.Joints[JointType.Spine].Position.Y + " , " + skeleton.Joints[JointType.Spine].Position.Z + " , ");
+                sw.Write(skeleton.Joints[JointType.HipCenter].Position.X + " , " + skeleton.Joints[JointType.HipCenter].Position.Y + " , " + skeleton.Joints[JointType.HipCenter].Position.Z + " , ");
+                sw.Write(skeleton.Joints[JointType.HipLeft].Position.X + " , " + skeleton.Joints[JointType.HipLeft].Position.Y + " , " + skeleton.Joints[JointType.HipLeft].Position.Z + " , ");
+                sw.Write(skeleton.Joints[JointType.HipRight].Position.X + " , " + skeleton.Joints[JointType.HipRight].Position.Y + " , " + skeleton.Joints[JointType.HipRight].Position.Z + " , ");
+                sw.Write(skeleton.Joints[JointType.ElbowLeft].Position.X + " , " + skeleton.Joints[JointType.ElbowLeft].Position.Y + " , " + skeleton.Joints[JointType.ElbowLeft].Position.Z + " , ");
+                sw.Write(skeleton.Joints[JointType.ElbowRight].Position.X + " , " + skeleton.Joints[JointType.ElbowRight].Position.Y + " , " + skeleton.Joints[JointType.ElbowRight].Position.Z + " , ");
+                sw.Write(skeleton.Joints[JointType.WristLeft].Position.X + " , " + skeleton.Joints[JointType.WristLeft].Position.Y + " , " + skeleton.Joints[JointType.WristLeft].Position.Z + " , ");
+                sw.Write(skeleton.Joints[JointType.WristRight].Position.X + " , " + skeleton.Joints[JointType.WristRight].Position.Y + " , " + skeleton.Joints[JointType.WristRight].Position.Z + " , ");
+                sw.Write(skeleton.Joints[JointType.HandLeft].Position.X + " , " + skeleton.Joints[JointType.HandLeft].Position.Y + " , " + skeleton.Joints[JointType.HandLeft].Position.Z + " , ");
+                sw.Write(skeleton.Joints[JointType.HandRight].Position.X + " , " + skeleton.Joints[JointType.HandRight].Position.Y + " , " + skeleton.Joints[JointType.HandRight].Position.Z + " , ");
+                sw.Write(skeleton.Joints[JointType.KneeLeft].Position.X + " , " + skeleton.Joints[JointType.KneeLeft].Position.Y + " , " + skeleton.Joints[JointType.KneeLeft].Position.Z + " , ");
+                sw.Write(skeleton.Joints[JointType.KneeRight].Position.X + " , " + skeleton.Joints[JointType.KneeRight].Position.Y + " , " + skeleton.Joints[JointType.KneeRight].Position.Z + " , ");
+                sw.Write(skeleton.Joints[JointType.AnkleLeft].Position.X + " , " + skeleton.Joints[JointType.AnkleLeft].Position.Y + " , " + skeleton.Joints[JointType.AnkleLeft].Position.Z + " , ");
+                sw.WriteLine(skeleton.Joints[JointType.AnkleRight].Position.X + " , " + skeleton.Joints[JointType.AnkleRight].Position.Y + " , " + skeleton.Joints[JointType.AnkleRight].Position.Z);
+            }
         }
 
         /// <summary>
@@ -429,7 +360,7 @@ namespace SpotifyKinectInterface
                     drawingContext.DrawEllipse(drawBrush, null, this.SkeletonPointToScreen(joint.Position), JointThickness, JointThickness);
                 }
             }
-            if (debugCounter % 100 == 0)
+            if (debugCounter % 10 == 0)
             {
                 this.DumpJointData(skeleton);
             }
