@@ -362,9 +362,33 @@ namespace SpotifyKinectInterface
             }
             if (debugCounter % 10 == 0)
             {
-                this.DumpJointData(skeleton);
+                var cleanedInputs = cleanInputs(skeleton);
+                var gesture = classifyGesture(cleanedInputs);
+                runCommand(gesture);
             }
             debugCounter++;
+        }
+
+        private float[] cleanInputs(Skeleton skeleton)
+        {
+            float[] cleanedInputs = { };
+
+            // Clean the inputs
+
+            return cleanedInputs;
+        }
+
+        private string classifyGesture(float[] inputs)
+        {
+            String gesture = "";
+            // Init MLP
+            // Classify the gesture
+            return gesture;
+        }
+
+        private void runCommand(String command)
+        {
+            // Calls the command from the interface project
         }
 
         /// <summary>
