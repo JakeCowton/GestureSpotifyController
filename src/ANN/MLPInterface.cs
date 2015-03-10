@@ -10,7 +10,7 @@ namespace ANN
     /// <summary>
     /// Class to interface with the MLP for test/example purposes
     /// </summary>
-    public class TestMLP
+    public class MLPInterface
     {
         /// <summary>
         /// THe MLP object
@@ -30,15 +30,31 @@ namespace ANN
         /// <summary>
         /// Constructor to test training and testing of the neural network with some example data hardcoded
         /// </summary>
-        public TestMLP()
+        public MLPInterface()
         {
-            int[] numberLayers = {7, 7, 10, 7};
-            trainingSet = new float[1, 37] { { 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F } };
-            testingSet = new float[1, 37] { { 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F } };
-            nn = new MLP(30, 7, numberLayers, 0.2F, 0.9F);
+            int[] hiddenStructure = {4};
+            nn = new MLP(4, 7, hiddenStructure, 0.2F, 0.9F);
+        }
 
-            nn.TrainNetwork(1, trainingSet);
-            nn.TestNetwork(1, testingSet);
+        /// <summary>
+        /// Trains & tests the MLP
+        /// </summary>
+        private void trainMLP()
+        {
+            // Get training data
+            // Get testing data
+            // Get training length
+            int numOfTraining = 0;
+            // Get testing length
+            int numOfTesting = 0;
+
+            this.nn.TrainNetwork(numOfTraining, trainingSet);
+            this.nn.TestNetwork(numOfTesting, testingSet);
+        }
+
+        private float recallMLP(float[] inputs)
+        {
+            return 1F;
         }
     }
 }

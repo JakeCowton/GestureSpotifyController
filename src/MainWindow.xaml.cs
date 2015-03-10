@@ -14,6 +14,7 @@ namespace SpotifyKinectInterface
     using System.ComponentModel;
     using Microsoft.Kinect;
     using SpotifyKinectInterface.VoiceControl;
+    using ANN;
 
 
     /// <summary>
@@ -97,6 +98,11 @@ namespace SpotifyKinectInterface
         private DrawingImage imageSource;
 
         /// <summary>
+        /// The MLP class for classification
+        /// </summary>
+        private MLPInterface mlpInterface;
+
+        /// <summary>
         /// Initializes a new instance of the MainWindow class.
         /// </summary>
         public MainWindow()
@@ -153,7 +159,7 @@ namespace SpotifyKinectInterface
         {
 
             // Test MLP
-            ANN.TestMLP mlpTester = new ANN.TestMLP();
+            this.mlpInterface = new MLPInterface();
 
             // Create the drawing group we'll use for drawing
             this.drawingGroup = new DrawingGroup();
