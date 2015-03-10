@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ANN", "ANN\ANN.csproj", "{9
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoiceControl", "VoiceControl\VoiceControl.csproj", "{FF239B1D-50B4-4768-B012-4D2F893AE56F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoundcloudInterface", "SoundcloudInterface\SoundcloudInterface.csproj", "{A92EE8E5-2094-4D18-B901-A845CE5D0AEC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{FF239B1D-50B4-4768-B012-4D2F893AE56F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF239B1D-50B4-4768-B012-4D2F893AE56F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF239B1D-50B4-4768-B012-4D2F893AE56F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A92EE8E5-2094-4D18-B901-A845CE5D0AEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A92EE8E5-2094-4D18-B901-A845CE5D0AEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A92EE8E5-2094-4D18-B901-A845CE5D0AEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A92EE8E5-2094-4D18-B901-A845CE5D0AEC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
