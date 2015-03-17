@@ -157,6 +157,10 @@ namespace SpotifyKinectInterface
         /// <param name="e">event arguments</param>
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
+            // Test Leap
+            Console.WriteLine("Before Leap");
+            LeapMotion.Sample leap = new LeapMotion.Sample();
+            Console.WriteLine("After Leap");
 
             // Test MLP
             this.mlpInterface = new MLPInterface();

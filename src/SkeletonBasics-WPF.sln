@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoiceControl", "VoiceContro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoundcloudInterface", "SoundcloudInterface\SoundcloudInterface.csproj", "{A92EE8E5-2094-4D18-B901-A845CE5D0AEC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeapMotion", "LeapMotion\LeapMotion.csproj", "{91714C67-3198-4448-AED0-CFCC4E981CA7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{A92EE8E5-2094-4D18-B901-A845CE5D0AEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A92EE8E5-2094-4D18-B901-A845CE5D0AEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A92EE8E5-2094-4D18-B901-A845CE5D0AEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91714C67-3198-4448-AED0-CFCC4E981CA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91714C67-3198-4448-AED0-CFCC4E981CA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91714C67-3198-4448-AED0-CFCC4E981CA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91714C67-3198-4448-AED0-CFCC4E981CA7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

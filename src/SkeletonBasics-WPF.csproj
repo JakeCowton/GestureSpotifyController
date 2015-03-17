@@ -23,7 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <Optimize>false</Optimize>
     <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
@@ -33,7 +33,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
@@ -119,6 +119,10 @@
     <ProjectReference Include="ANN\ANN.csproj">
       <Project>{93383d78-053b-4995-900d-93e94d254648}</Project>
       <Name>ANN</Name>
+    </ProjectReference>
+    <ProjectReference Include="LeapMotion\LeapMotion.csproj">
+      <Project>{91714c67-3198-4448-aed0-cfcc4e981ca7}</Project>
+      <Name>LeapMotion</Name>
     </ProjectReference>
     <ProjectReference Include="VoiceControl\VoiceControl.csproj">
       <Project>{ff239b1d-50b4-4768-b012-4d2f893ae56f}</Project>
