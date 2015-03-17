@@ -25,7 +25,7 @@ namespace SpotifyKinectInterface
         /// <summary>
         /// Debug counter
         /// </summary>
-        private int debugCounter = 0;
+        private int tickCounter = 0;
 
         /// <summary>
         /// Width of output drawing
@@ -285,30 +285,30 @@ namespace SpotifyKinectInterface
         /// Dumps skeleton joint co-ordinates to debug console
         /// </summary>
         /// <param name="skeleton">skeleton to dump joint data for</param>
-        private void DumpJointData(Skeleton skeleton)
+        private float[] dumpJointData(Skeleton skeleton)
         {
-            using (FileStream fs = new FileStream("C:\\Users\\Jake\\Desktop\\skeleton-mute.txt", FileMode.Append, FileAccess.Write))
-            using (StreamWriter sw = new StreamWriter(fs))
-            {
-                sw.Write(skeleton.Joints[JointType.Head].Position.X + " , " + skeleton.Joints[JointType.Head].Position.Y + " , " + skeleton.Joints[JointType.Head].Position.Z + " , ");
-                sw.Write(skeleton.Joints[JointType.ShoulderCenter].Position.X + " , " + skeleton.Joints[JointType.ShoulderCenter].Position.Y + " , " + skeleton.Joints[JointType.ShoulderCenter].Position.Z + " , ");
-                sw.Write(skeleton.Joints[JointType.ShoulderLeft].Position.X + " , " + skeleton.Joints[JointType.ShoulderLeft].Position.Y + " , " + skeleton.Joints[JointType.ShoulderLeft].Position.Z + " , ");
-                sw.Write(skeleton.Joints[JointType.ShoulderRight].Position.X + " , " + skeleton.Joints[JointType.ShoulderRight].Position.Y + " , " + skeleton.Joints[JointType.ShoulderRight].Position.Z + " , ");
-                sw.Write(skeleton.Joints[JointType.Spine].Position.X + " , " + skeleton.Joints[JointType.Spine].Position.Y + " , " + skeleton.Joints[JointType.Spine].Position.Z + " , ");
-                sw.Write(skeleton.Joints[JointType.HipCenter].Position.X + " , " + skeleton.Joints[JointType.HipCenter].Position.Y + " , " + skeleton.Joints[JointType.HipCenter].Position.Z + " , ");
-                sw.Write(skeleton.Joints[JointType.HipLeft].Position.X + " , " + skeleton.Joints[JointType.HipLeft].Position.Y + " , " + skeleton.Joints[JointType.HipLeft].Position.Z + " , ");
-                sw.Write(skeleton.Joints[JointType.HipRight].Position.X + " , " + skeleton.Joints[JointType.HipRight].Position.Y + " , " + skeleton.Joints[JointType.HipRight].Position.Z + " , ");
-                sw.Write(skeleton.Joints[JointType.ElbowLeft].Position.X + " , " + skeleton.Joints[JointType.ElbowLeft].Position.Y + " , " + skeleton.Joints[JointType.ElbowLeft].Position.Z + " , ");
-                sw.Write(skeleton.Joints[JointType.ElbowRight].Position.X + " , " + skeleton.Joints[JointType.ElbowRight].Position.Y + " , " + skeleton.Joints[JointType.ElbowRight].Position.Z + " , ");
-                sw.Write(skeleton.Joints[JointType.WristLeft].Position.X + " , " + skeleton.Joints[JointType.WristLeft].Position.Y + " , " + skeleton.Joints[JointType.WristLeft].Position.Z + " , ");
-                sw.Write(skeleton.Joints[JointType.WristRight].Position.X + " , " + skeleton.Joints[JointType.WristRight].Position.Y + " , " + skeleton.Joints[JointType.WristRight].Position.Z + " , ");
-                sw.Write(skeleton.Joints[JointType.HandLeft].Position.X + " , " + skeleton.Joints[JointType.HandLeft].Position.Y + " , " + skeleton.Joints[JointType.HandLeft].Position.Z + " , ");
-                sw.Write(skeleton.Joints[JointType.HandRight].Position.X + " , " + skeleton.Joints[JointType.HandRight].Position.Y + " , " + skeleton.Joints[JointType.HandRight].Position.Z + " , ");
-                sw.Write(skeleton.Joints[JointType.KneeLeft].Position.X + " , " + skeleton.Joints[JointType.KneeLeft].Position.Y + " , " + skeleton.Joints[JointType.KneeLeft].Position.Z + " , ");
-                sw.Write(skeleton.Joints[JointType.KneeRight].Position.X + " , " + skeleton.Joints[JointType.KneeRight].Position.Y + " , " + skeleton.Joints[JointType.KneeRight].Position.Z + " , ");
-                sw.Write(skeleton.Joints[JointType.AnkleLeft].Position.X + " , " + skeleton.Joints[JointType.AnkleLeft].Position.Y + " , " + skeleton.Joints[JointType.AnkleLeft].Position.Z + " , ");
-                sw.WriteLine(skeleton.Joints[JointType.AnkleRight].Position.X + " , " + skeleton.Joints[JointType.AnkleRight].Position.Y + " , " + skeleton.Joints[JointType.AnkleRight].Position.Z);
-            }
+            float[] joints = new float[18] {
+                skeleton.Joints[JointType.Head].Position.X, // 0
+                skeleton.Joints[JointType.Head].Position.Y, // 1
+                skeleton.Joints[JointType.ShoulderLeft].Position.X, //2
+                skeleton.Joints[JointType.ShoulderLeft].Position.Y, //3
+                skeleton.Joints[JointType.ShoulderRight].Position.X, //4
+                skeleton.Joints[JointType.ShoulderRight].Position.Y, //5
+                skeleton.Joints[JointType.ElbowLeft].Position.X, //6
+                skeleton.Joints[JointType.ElbowLeft].Position.Y, //7
+                skeleton.Joints[JointType.ElbowRight].Position.X, //8
+                skeleton.Joints[JointType.ElbowRight].Position.Y, //9
+                skeleton.Joints[JointType.WristLeft].Position.X, //10
+                skeleton.Joints[JointType.WristLeft].Position.Y, //11
+                skeleton.Joints[JointType.WristRight].Position.X, //12
+                skeleton.Joints[JointType.WristRight].Position.Y, //13
+                skeleton.Joints[JointType.HandLeft].Position.X, //14
+                skeleton.Joints[JointType.HandLeft].Position.Y, //15
+                skeleton.Joints[JointType.HandRight].Position.X, //16
+                skeleton.Joints[JointType.HandRight].Position.Y //17
+            };
+
+            return joints;
         }
 
         /// <summary>
@@ -366,30 +366,15 @@ namespace SpotifyKinectInterface
                     drawingContext.DrawEllipse(drawBrush, null, this.SkeletonPointToScreen(joint.Position), JointThickness, JointThickness);
                 }
             }
-            if (debugCounter % 10 == 0)
+            if (tickCounter % 10 == 0)
             {
-                var cleanedInputs = cleanInputs(skeleton);
-                var gesture = classifyGesture(cleanedInputs);
-                runCommand(gesture);
+                string gesture = this.mlpInterface.recall(dumpJointData(skeleton));
+                if (!gesture.Equals(""))
+                {
+                    runCommand(gesture);
+                }
             }
-            debugCounter++;
-        }
-
-        private float[] cleanInputs(Skeleton skeleton)
-        {
-            float[] cleanedInputs = { };
-
-            // Clean the inputs
-
-            return cleanedInputs;
-        }
-
-        private string classifyGesture(float[] inputs)
-        {
-            String gesture = "";
-            // Init MLP
-            // Classify the gesture
-            return gesture;
+            tickCounter++;
         }
 
         private void runCommand(String command)
