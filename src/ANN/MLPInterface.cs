@@ -20,12 +20,12 @@ namespace ANN
         /// <summary>
         /// 2d array of training data
         /// </summary>
-        private float[,] trainingSet;
+        private float[,] trainingSet = new float[280,10];
 
         /// <summary>
         /// 2d array of testing data
         /// </summary>
-        private float[,] testingSet;
+        private float[,] testingSet = new float[70,10];
 
         /// <summary>
         /// Constructor to test training and testing of the neural network with some example data hardcoded
@@ -35,7 +35,26 @@ namespace ANN
             int[] hiddenStructure = {4};
             // 10 Inputs | 7 Outputs | 4 hidden ...
             nn = new MLP(10, 7, hiddenStructure, 0.2F, 0.9F);
+            getTrainingData();
             trainMLP();
+        }
+
+        private void getTrainingData()
+        {
+            string folderPath = @"../../../../training-data/skeleton-";
+            string[] filenames = {
+                                     "play.txt",
+                                     "pause.txt",
+                                     "next.txt",
+                                     "previous.txt",
+                                     "volup.txt",
+                                     "voldown.txt",
+                                     "mute.txt"
+                                 };
+
+            float[][] list = System.IO.File.ReadAllLines(filename)
+                                          .Select(l => l.Split(' ').Select(i => int.Parse(i)).ToArray())
+                                          .ToArray();
         }
 
         /// <summary>
