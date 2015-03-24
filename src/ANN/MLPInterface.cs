@@ -53,6 +53,15 @@ namespace ANN
             this.nn.TestNetwork(numOfTesting, testingSet);
         }
 
+        /// <summary>
+        /// Calls the MLP
+        /// </summary>
+        /// <param name="inputs">
+        ///     The skeleton points
+        /// </param>
+        /// <returns>
+        ///     A string representing the gesture classification
+        /// </returns>
         public String recall(float[] inputs)
         {
             float[] distances = measureInputs(inputs);
@@ -64,6 +73,16 @@ namespace ANN
             return classifyGesture(distances);
         }
 
+        /// <summary>
+        /// Finds the Euclidean distance between two skeleton points using the x & y axis (not z)
+        /// </summary>
+        /// <param name="joints">
+        ///     An array of floats containing the used joint data
+        /// </param>
+        /// <returns>
+        ///     An array of distances
+        ///         Order is shown in the comments
+        /// </returns>
         public float[] measureInputs(float[] joints)
         {
             float[] measuredInputs = new float[10];
@@ -92,6 +111,16 @@ namespace ANN
             return measuredInputs;
         }
 
+        /// <summary>
+        ///     Handles the conversion of a double to float
+        ///     whilst avoiding hitting +/- infinity.
+        /// </summary>
+        /// <param name="input">
+        ///     The value to convert to float
+        /// </param>
+        /// <returns>
+        ///     A float value
+        /// </returns>
         private float toFloat(double input)
         {
             float result = (float)input;
@@ -108,6 +137,11 @@ namespace ANN
 
         }
 
+        /// <summary>
+        ///     Classifies 
+        /// </summary>
+        /// <param name="inputs"></param>
+        /// <returns></returns>
         public string classifyGesture(float[] inputs)
         {
             String gesture = "";
