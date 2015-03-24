@@ -20,12 +20,12 @@ namespace ANN
         /// <summary>
         /// 2d array of training data
         /// </summary>
-        private float[,] trainingSet = new float[280,10];
+        private float[,] trainingSet;
 
         /// <summary>
         /// 2d array of testing data
         /// </summary>
-        private float[,] testingSet = new float[70,10];
+        private float[,] testingSet;
 
         /// <summary>
         /// Constructor to test training and testing of the neural network with some example data hardcoded
@@ -36,21 +36,51 @@ namespace ANN
             // 10 Inputs | 7 Outputs | 4 hidden ...
             nn = new MLP(10, 7, hiddenStructure, 0.2F, 0.9F);
             getTrainingData();
+            getTestingData();
             trainMLP();
         }
 
         /// <summary>
-        /// Gets the training and testing data from the files
+        /// Gets the training data from the files
         /// </summary>
         private void getTrainingData()
         {
-            string training_data_path = @"../../../../training-data/training_data.txt";
-            float[][] training_data = System.IO.File.ReadAllLines(training_data_path)
-                                                    .Select(l => l.Split(',').Select(i => float.Parse(i)).ToArray()).ToArray();
+            string path = @"C:\Users\Jake\Desktop\training_data.txt";
+            String training_file = System.IO.File.ReadAllText(path);
 
-            string testing_data_path = @"../../../../training-data/testing_data.txt";
-            float[][] testing_data = System.IO.File.ReadAllLines(testing_data_path)
-                                                   .Select(l => l.Split(',').Select(i => float.Parse(i)).ToArray()).ToArray();
+            int i = 0, j = 0;
+            this.trainingSet = new float[280, 61];
+            foreach (var row in training_file.Split('\n'))
+            {
+                j = 0;
+                foreach (var col in row.Trim().Split(','))
+                {
+                    this.trainingSet[i, j] = float.Parse(col.Trim());
+                    j++;
+                }
+                i++;
+            }
+            Console.WriteLine("Training Data Received");
+        }
+
+        private void getTestingData()
+        {
+            string path = @"C:\Users\Jake\Desktop\testing_data.txt";
+            String testing_file = System.IO.File.ReadAllText(path);
+
+            int i = 0, j = 0;
+            this.testingSet = new float[70, 61];
+            foreach (var row in testing_file.Split('\n'))
+            {
+                j = 0;
+                foreach (var col in row.Trim().Split(','))
+                {
+                    this.testingSet[i, j] = float.Parse(col.Trim());
+                    j++;
+                }
+                i++;
+            }
+            Console.WriteLine("Testing Data Received");
         }
 
         /// <summary>
