@@ -33,7 +33,8 @@ namespace ANN
         public MLPInterface()
         {
             int[] hiddenStructure = {4};
-            nn = new MLP(4, 7, hiddenStructure, 0.2F, 0.9F);
+            // 10 Inputs | 7 Outputs | 4 hidden ...
+            nn = new MLP(10, 7, hiddenStructure, 0.2F, 0.9F);
             trainMLP();
         }
 
@@ -65,11 +66,7 @@ namespace ANN
         public String recall(float[] inputs)
         {
             float[] distances = measureInputs(inputs);
-            float[] outs = this.nn.RecallNetwork(distances);
-            foreach (float i in outs)
-            {
-                Console.WriteLine(i.ToString());
-            }
+
             return classifyGesture(distances);
         }
 
@@ -155,26 +152,26 @@ namespace ANN
                 switch (maxIndex)
                 {
                     case 0:
-                        //test
-                        break;
+                        // Play
+                        return "PLAY";
                     case 1:
-                        //test
-                        break;
+                        // Pause
+                        return "PAUSE";
                     case 2:
-                        //test
-                        break;
+                        // Skip Forward
+                        return "SKIP";
                     case 3:
-                        //test
-                        break;
+                        // Go Backward
+                        return "BACK";
                     case 4:
-                        //test
-                        break;
+                        // Volume Up
+                        return "VUP";
                     case 5:
-                        //test
-                        break;
+                        // Volume Down
+                        return "VDOWN";
                     case 6:
-                        //test
-                        break;
+                        // Mute
+                        return "MUTE";
                 }
             }
             return gesture;
