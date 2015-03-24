@@ -103,6 +103,16 @@ namespace SpotifyKinectInterface
         private MLPInterface mlpInterface;
 
         /// <summary>
+        /// The leapinterface class for gesture handling
+        /// </summary>
+        private LeapMotion.LeapInterface leapinterface;
+
+        /// <summary>
+        /// Boolean operator to represent play/pause
+        /// </summary>
+        private Boolean Playing;
+
+        /// <summary>
         /// Initializes a new instance of the MainWindow class.
         /// </summary>
         public MainWindow()
@@ -157,10 +167,8 @@ namespace SpotifyKinectInterface
         /// <param name="e">event arguments</param>
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
-            // Test Leap
-            Console.WriteLine("Before Leap");
-            LeapMotion.Sample leap = new LeapMotion.Sample();
-            Console.WriteLine("After Leap");
+            // Test start playing
+            this.Playing = true;
 
             // Test MLP
             this.mlpInterface = new MLPInterface();
@@ -214,6 +222,9 @@ namespace SpotifyKinectInterface
             vc = new VoiceControlEngine(sensor);
             vc.voiceRec();
 
+            // Create and add event handler for leap gestures from LeapInterface
+            this.leapinterface = new LeapMotion.LeapInterface();
+            leapinterface.GestureInterface += new EventHandler<LeapMotion.GestureEvent>(ProcessGesture);
         }
 
         /// <summary>
@@ -233,6 +244,32 @@ namespace SpotifyKinectInterface
 
             this.vc.kill();
 
+            // Clean up the leap interface, controller and listener
+            this.leapinterface.CleanUpLeapInterface();
+
+        }
+
+        /// <summary>
+        /// Event handler for Leap sensor listener class OnGesture event
+        /// </summary>
+        /// <param name="sender">object sending the event</param>
+        /// <param name="e">event arguments</param>
+        private void ProcessGesture(object sender, LeapMotion.GestureEvent e)
+        {
+            // Example setting global variable to play/pause and printing actions (Using object state - "STATESTART" signifies a new gesture)
+            if (e.State == "STATESTART")
+            {
+                if (Playing)
+                {
+                    Console.WriteLine("Swipe - Paused music");
+                    Playing = false;
+                }
+                else
+                {
+                    Console.WriteLine("Swipe - Play music");
+                    Playing = true;
+                }
+            }
         }
 
         /// <summary>

@@ -7,24 +7,63 @@ using Leap;
 
 namespace LeapMotion
 {
-    public class Sample
+    public class LeapInterface
     {
-        public static void Main()
+        /// <summary>
+        /// Event handler using custom EventArgs object (GestureEvent)
+        /// </summary>
+        public event EventHandler<GestureEvent> GestureInterface;
+
+        /// <summary>
+        /// Custom EventArgs object to pass with event
+        /// </summary>
+        private GestureEvent GestureArgs;
+
+        /// <summary>
+        /// Instance of LeapListener class to register with controller
+        /// </summary>
+        private LeapListener listener;
+
+        /// <summary>
+        /// Controller to register with LeapListener object
+        /// </summary>
+        private Controller controller;
+
+        /// <summary>
+        /// Constructor for LeapInterface class
+        /// </summary>
+        public LeapInterface()
         {
-            // Create a sample listener and controller
-            LeapListener listener = new LeapListener();
-            Controller controller = new Controller();
+            // Create a listener and controller
+            this.listener = new LeapListener();
+            this.controller = new Controller();
 
             // Have the sample listener receive events from the controller
             controller.AddListener(listener);
 
-            // Keep this process running until Enter is pressed
-            Console.WriteLine("Press Enter to quit...");
-            Console.ReadLine();
+            // Register event handler
+            listener.GestureMade += new EventHandler<GestureEvent>(ProcessGesture);
+        }
 
-            // Remove the sample listener when done
+        /// <summary>
+        /// Ensure objects are disposed of cleanly on exit
+        /// </summary>
+        public void CleanUpLeapInterface()
+        {
             controller.RemoveListener(listener);
             controller.Dispose();
+        }
+
+        /// <summary>
+        /// Method to receive events from LeapListener and pass on to GestureInterface
+        /// </summary>
+        /// <param name="sender">Sending object</param>
+        /// <param name="e">Custom EventArgs object (GestureEvent)</param>
+        public void ProcessGesture(object sender, GestureEvent e)
+        {
+            GestureArgs = e;
+            if (GestureInterface != null)
+                GestureInterface(this, GestureArgs);
         }
     }
 }
