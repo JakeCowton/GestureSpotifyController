@@ -39,22 +39,18 @@ namespace ANN
             trainMLP();
         }
 
+        /// <summary>
+        /// Gets the training and testing data from the files
+        /// </summary>
         private void getTrainingData()
         {
-            string folderPath = @"../../../../training-data/skeleton-";
-            string[] filenames = {
-                                     "play.txt",
-                                     "pause.txt",
-                                     "next.txt",
-                                     "previous.txt",
-                                     "volup.txt",
-                                     "voldown.txt",
-                                     "mute.txt"
-                                 };
+            string training_data_path = @"../../../../training-data/training_data.txt";
+            float[][] training_data = System.IO.File.ReadAllLines(training_data_path)
+                                                    .Select(l => l.Split(',').Select(i => float.Parse(i)).ToArray()).ToArray();
 
-            float[][] list = System.IO.File.ReadAllLines(filename)
-                                          .Select(l => l.Split(' ').Select(i => int.Parse(i)).ToArray())
-                                          .ToArray();
+            string testing_data_path = @"../../../../training-data/testing_data.txt";
+            float[][] testing_data = System.IO.File.ReadAllLines(testing_data_path)
+                                                   .Select(l => l.Split(',').Select(i => float.Parse(i)).ToArray()).ToArray();
         }
 
         /// <summary>
