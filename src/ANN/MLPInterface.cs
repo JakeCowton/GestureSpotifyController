@@ -63,6 +63,7 @@ namespace ANN
             int numOfTesting = 70;
 
             // Filter the data needed
+            filterFullData(280, 70);
 
             this.nn.TrainNetwork(numOfTraining, trainingSet);
             this.nn.TestNetwork(numOfTesting, testingSet);
@@ -73,7 +74,7 @@ namespace ANN
         /// </summary>
         private void getTrainingData()
         {
-            string path = @"C:\Users\Jake\Desktop\training_data.txt";
+            string path = @"..\..\..\training-files\training_data.txt";
             String training_file = System.IO.File.ReadAllText(path);
 
             int i = 0, j = 0;
@@ -96,7 +97,7 @@ namespace ANN
         /// </summary>
         private void getTestingData()
         {
-            string path = @"C:\Users\Jake\Desktop\testing_data.txt";
+            string path = @"..\..\..\training-files\testing_data.txt";
             String testing_file = System.IO.File.ReadAllText(path);
 
             int i = 0, j = 0;
@@ -113,6 +114,59 @@ namespace ANN
             }
             Console.WriteLine("Testing Data Received");
         }
+
+        /// <summary>
+        /// Filters out the points needed and calculates the measurements
+        /// </summary>
+        private void filterFullData(int numOfTraining, int numOfTesting)
+        {
+            this.trainingSet = new float[280, 17];
+            for (int i = 0; i < numOfTraining; i++)
+            {
+                this.trainingSet[i, 0] = toFloat(Math.Sqrt(Math.Pow((this.fullTrainingSet[i, 0] + this.fullTrainingSet[i, 36]), 2) + Math.Pow((this.fullTrainingSet[i, 1] + this.fullTrainingSet[i, 37]), 2)));
+                this.trainingSet[i, 1] = toFloat(Math.Sqrt(Math.Pow((this.fullTrainingSet[i, 0] + this.fullTrainingSet[i, 30]), 2) + Math.Pow((this.fullTrainingSet[i, 1] + this.fullTrainingSet[i, 31]), 2)));
+                this.trainingSet[i, 2] = toFloat(Math.Sqrt(Math.Pow((this.fullTrainingSet[i, 0] + this.fullTrainingSet[i, 24]), 2) + Math.Pow((this.fullTrainingSet[i, 1] + this.fullTrainingSet[i, 25]), 2)));
+                this.trainingSet[i, 3] = toFloat(Math.Sqrt(Math.Pow((this.fullTrainingSet[i, 0] + this.fullTrainingSet[i, 37]), 2) + Math.Pow((this.fullTrainingSet[i, 1] + this.fullTrainingSet[i, 28]), 2)));
+                this.trainingSet[i, 4] = toFloat(Math.Sqrt(Math.Pow((this.fullTrainingSet[i, 0] + this.fullTrainingSet[i, 33]), 2) + Math.Pow((this.fullTrainingSet[i, 1] + this.fullTrainingSet[i, 34]), 2)));
+                this.trainingSet[i, 5] = toFloat(Math.Sqrt(Math.Pow((this.fullTrainingSet[i, 0] + this.fullTrainingSet[i, 39]), 2) + Math.Pow((this.fullTrainingSet[i, 1] + this.fullTrainingSet[i, 40]), 2)));
+                this.trainingSet[i, 6] = toFloat(Math.Sqrt(Math.Pow((this.fullTrainingSet[i, 36] + this.fullTrainingSet[i, 6]), 2) + Math.Pow((this.fullTrainingSet[i, 37] + this.fullTrainingSet[i, 7]), 2)));
+                this.trainingSet[i, 7] = toFloat(Math.Sqrt(Math.Pow((this.fullTrainingSet[i, 30] + this.fullTrainingSet[i, 6]), 2) + Math.Pow((this.fullTrainingSet[i, 31] + this.fullTrainingSet[i, 7]), 2)));
+                this.trainingSet[i, 8] = toFloat(Math.Sqrt(Math.Pow((this.fullTrainingSet[i, 39] + this.fullTrainingSet[i, 9]), 2) + Math.Pow((this.fullTrainingSet[i, 40] + this.fullTrainingSet[i, 10]), 2)));
+                this.trainingSet[i, 9] = toFloat(Math.Sqrt(Math.Pow((this.fullTrainingSet[i, 33] + this.fullTrainingSet[i, 9]), 2) + Math.Pow((this.fullTrainingSet[i, 34] + this.fullTrainingSet[i, 10]), 2)));
+                // 54-60 are expected outputs
+                this.trainingSet[i, 10] = this.fullTrainingSet[i, 54];
+                this.trainingSet[i, 11] = this.fullTrainingSet[i, 55];
+                this.trainingSet[i, 12] = this.fullTrainingSet[i, 56];
+                this.trainingSet[i, 13] = this.fullTrainingSet[i, 57];
+                this.trainingSet[i, 14] = this.fullTrainingSet[i, 58];
+                this.trainingSet[i, 15] = this.fullTrainingSet[i, 59];
+                this.trainingSet[i, 16] = this.fullTrainingSet[i, 60];
+            }
+
+            this.testingSet = new float[70, 17];
+            for (int i = 0; i < numOfTesting; i++)
+            {
+                this.testingSet[i, 0] = toFloat(Math.Sqrt(Math.Pow((this.fullTestingSet[i, 0] + this.fullTestingSet[i, 36]), 2) + Math.Pow((this.fullTestingSet[i, 1] + this.fullTestingSet[i, 37]), 2)));
+                this.testingSet[i, 1] = toFloat(Math.Sqrt(Math.Pow((this.fullTestingSet[i, 0] + this.fullTestingSet[i, 30]), 2) + Math.Pow((this.fullTestingSet[i, 1] + this.fullTestingSet[i, 31]), 2)));
+                this.testingSet[i, 2] = toFloat(Math.Sqrt(Math.Pow((this.fullTestingSet[i, 0] + this.fullTestingSet[i, 24]), 2) + Math.Pow((this.fullTestingSet[i, 1] + this.fullTestingSet[i, 25]), 2)));
+                this.testingSet[i, 3] = toFloat(Math.Sqrt(Math.Pow((this.fullTestingSet[i, 0] + this.fullTestingSet[i, 37]), 2) + Math.Pow((this.fullTestingSet[i, 1] + this.fullTestingSet[i, 28]), 2)));
+                this.testingSet[i, 4] = toFloat(Math.Sqrt(Math.Pow((this.fullTestingSet[i, 0] + this.fullTestingSet[i, 33]), 2) + Math.Pow((this.fullTestingSet[i, 1] + this.fullTestingSet[i, 34]), 2)));
+                this.testingSet[i, 5] = toFloat(Math.Sqrt(Math.Pow((this.fullTestingSet[i, 0] + this.fullTestingSet[i, 39]), 2) + Math.Pow((this.fullTestingSet[i, 1] + this.fullTestingSet[i, 40]), 2)));
+                this.testingSet[i, 6] = toFloat(Math.Sqrt(Math.Pow((this.fullTestingSet[i, 36] + this.fullTestingSet[i, 6]), 2) + Math.Pow((this.fullTestingSet[i, 37] + this.fullTestingSet[i, 7]), 2)));
+                this.testingSet[i, 7] = toFloat(Math.Sqrt(Math.Pow((this.fullTestingSet[i, 30] + this.fullTestingSet[i, 6]), 2) + Math.Pow((this.fullTestingSet[i, 31] + this.fullTestingSet[i, 7]), 2)));
+                this.testingSet[i, 8] = toFloat(Math.Sqrt(Math.Pow((this.fullTestingSet[i, 39] + this.fullTestingSet[i, 9]), 2) + Math.Pow((this.fullTestingSet[i, 40] + this.fullTestingSet[i, 10]), 2)));
+                this.testingSet[i, 9] = toFloat(Math.Sqrt(Math.Pow((this.fullTestingSet[i, 33] + this.fullTestingSet[i, 9]), 2) + Math.Pow((this.fullTestingSet[i, 34] + this.fullTestingSet[i, 10]), 2)));
+                // 54-60 are expected outputs
+                this.trainingSet[i, 10] = this.fullTrainingSet[i, 54];
+                this.trainingSet[i, 11] = this.fullTrainingSet[i, 55];
+                this.trainingSet[i, 12] = this.fullTrainingSet[i, 56];
+                this.trainingSet[i, 13] = this.fullTrainingSet[i, 57];
+                this.trainingSet[i, 14] = this.fullTrainingSet[i, 58];
+                this.trainingSet[i, 15] = this.fullTrainingSet[i, 59];
+                this.trainingSet[i, 16] = this.fullTrainingSet[i, 60];
+            }
+        }
+
 
         /// <summary>
         /// Calls the MLP

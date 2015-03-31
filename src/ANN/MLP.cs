@@ -107,6 +107,7 @@ namespace ANN
                 }
                 error /= numInputs;
             }
+            Console.WriteLine("Network Trained");
         }
 
         /// <summary>
