@@ -418,9 +418,38 @@ namespace SpotifyKinectInterface
             tickCounter++;
         }
 
+        /// <summary>
+        /// Calls the command from the interface project
+        /// </summary>
+        /// <param name="command">
+        ///     The name of the command to run
+        /// </param>
         private void runCommand(String command)
         {
-            // Calls the command from the interface project
+            switch (command)
+            {
+                case "PLAY":
+                    Console.WriteLine("Play");
+                    break;
+                case "PAUSE":
+                    Console.WriteLine("Pause");
+                    break;
+                case "SKIP":
+                    Console.WriteLine("Skip");
+                    break;
+                case "BACK":
+                    Console.WriteLine("Back");
+                    break;
+                case "VUP":
+                    Console.WriteLine("Volume Up");
+                    break;
+                case "VDOWN":
+                    Console.WriteLine("Volume Down");
+                    break;
+                case "MUTE":
+                    Console.WriteLine("Mute");
+                    break;
+            }
         }
 
         /// <summary>

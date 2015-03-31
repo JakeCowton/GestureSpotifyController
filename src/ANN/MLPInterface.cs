@@ -18,6 +18,16 @@ namespace ANN
         private MLP nn;
 
         /// <summary>
+        /// All of the values from training data (unfiltered)
+        /// </summary>
+        private float[,] fullTrainingSet;
+
+        /// <summary>
+        /// All of the values from testing data (unfiltered)
+        /// </summary>
+        private float[,] fullTestingSet;
+
+        /// <summary>
         /// 2d array of training data
         /// </summary>
         private float[,] trainingSet;
@@ -33,7 +43,8 @@ namespace ANN
         public MLPInterface()
         {
             int[] hiddenStructure = {4};
-            nn = new MLP(4, 7, hiddenStructure, 0.2F, 0.9F);
+            // 10 Inputs | 7 Outputs | 4 hidden ...
+            nn = new MLP(10, 7, hiddenStructure, 0.2F, 0.9F);
             trainMLP();
         }
 
@@ -42,28 +53,147 @@ namespace ANN
         /// </summary>
         private void trainMLP()
         {
-            // Get training data
-            // Get testing data
+            // Get the training and testing data
+            getTrainingData();
+            getTestingData();
+
             // Get training length
-            int numOfTraining = 0;
+            int numOfTraining = 280;
             // Get testing length
-            int numOfTesting = 0;
+            int numOfTesting = 70;
+
+            // Filter the data needed
+            filterFullData(280, 70);
 
             this.nn.TrainNetwork(numOfTraining, trainingSet);
             this.nn.TestNetwork(numOfTesting, testingSet);
         }
 
+        /// <summary>
+        /// Gets the training data from the files
+        /// </summary>
+        private void getTrainingData()
+        {
+            string path = @"..\..\..\training-files\training_data.txt";
+            String training_file = System.IO.File.ReadAllText(path);
+
+            int i = 0, j = 0;
+            this.fullTrainingSet = new float[280, 61];
+            foreach (var row in training_file.Split('\n'))
+            {
+                j = 0;
+                foreach (var col in row.Trim().Split(','))
+                {
+                    this.fullTrainingSet[i, j] = float.Parse(col.Trim());
+                    j++;
+                }
+                i++;
+            }
+            Console.WriteLine("Training Data Received");
+        }
+
+        /// <summary>
+        /// Gets the testing data from the file
+        /// </summary>
+        private void getTestingData()
+        {
+            string path = @"..\..\..\training-files\testing_data.txt";
+            String testing_file = System.IO.File.ReadAllText(path);
+
+            int i = 0, j = 0;
+            this.fullTestingSet = new float[70, 61];
+            foreach (var row in testing_file.Split('\n'))
+            {
+                j = 0;
+                foreach (var col in row.Trim().Split(','))
+                {
+                    this.fullTestingSet[i, j] = float.Parse(col.Trim());
+                    j++;
+                }
+                i++;
+            }
+            Console.WriteLine("Testing Data Received");
+        }
+
+        /// <summary>
+        /// Filters out the points needed and calculates the measurements
+        /// </summary>
+        private void filterFullData(int numOfTraining, int numOfTesting)
+        {
+            this.trainingSet = new float[280, 17];
+            for (int i = 0; i < numOfTraining; i++)
+            {
+                this.trainingSet[i, 0] = toFloat(Math.Sqrt(Math.Pow((this.fullTrainingSet[i, 0] + this.fullTrainingSet[i, 36]), 2) + Math.Pow((this.fullTrainingSet[i, 1] + this.fullTrainingSet[i, 37]), 2)));
+                this.trainingSet[i, 1] = toFloat(Math.Sqrt(Math.Pow((this.fullTrainingSet[i, 0] + this.fullTrainingSet[i, 30]), 2) + Math.Pow((this.fullTrainingSet[i, 1] + this.fullTrainingSet[i, 31]), 2)));
+                this.trainingSet[i, 2] = toFloat(Math.Sqrt(Math.Pow((this.fullTrainingSet[i, 0] + this.fullTrainingSet[i, 24]), 2) + Math.Pow((this.fullTrainingSet[i, 1] + this.fullTrainingSet[i, 25]), 2)));
+                this.trainingSet[i, 3] = toFloat(Math.Sqrt(Math.Pow((this.fullTrainingSet[i, 0] + this.fullTrainingSet[i, 37]), 2) + Math.Pow((this.fullTrainingSet[i, 1] + this.fullTrainingSet[i, 28]), 2)));
+                this.trainingSet[i, 4] = toFloat(Math.Sqrt(Math.Pow((this.fullTrainingSet[i, 0] + this.fullTrainingSet[i, 33]), 2) + Math.Pow((this.fullTrainingSet[i, 1] + this.fullTrainingSet[i, 34]), 2)));
+                this.trainingSet[i, 5] = toFloat(Math.Sqrt(Math.Pow((this.fullTrainingSet[i, 0] + this.fullTrainingSet[i, 39]), 2) + Math.Pow((this.fullTrainingSet[i, 1] + this.fullTrainingSet[i, 40]), 2)));
+                this.trainingSet[i, 6] = toFloat(Math.Sqrt(Math.Pow((this.fullTrainingSet[i, 36] + this.fullTrainingSet[i, 6]), 2) + Math.Pow((this.fullTrainingSet[i, 37] + this.fullTrainingSet[i, 7]), 2)));
+                this.trainingSet[i, 7] = toFloat(Math.Sqrt(Math.Pow((this.fullTrainingSet[i, 30] + this.fullTrainingSet[i, 6]), 2) + Math.Pow((this.fullTrainingSet[i, 31] + this.fullTrainingSet[i, 7]), 2)));
+                this.trainingSet[i, 8] = toFloat(Math.Sqrt(Math.Pow((this.fullTrainingSet[i, 39] + this.fullTrainingSet[i, 9]), 2) + Math.Pow((this.fullTrainingSet[i, 40] + this.fullTrainingSet[i, 10]), 2)));
+                this.trainingSet[i, 9] = toFloat(Math.Sqrt(Math.Pow((this.fullTrainingSet[i, 33] + this.fullTrainingSet[i, 9]), 2) + Math.Pow((this.fullTrainingSet[i, 34] + this.fullTrainingSet[i, 10]), 2)));
+                // 54-60 are expected outputs
+                this.trainingSet[i, 10] = this.fullTrainingSet[i, 54];
+                this.trainingSet[i, 11] = this.fullTrainingSet[i, 55];
+                this.trainingSet[i, 12] = this.fullTrainingSet[i, 56];
+                this.trainingSet[i, 13] = this.fullTrainingSet[i, 57];
+                this.trainingSet[i, 14] = this.fullTrainingSet[i, 58];
+                this.trainingSet[i, 15] = this.fullTrainingSet[i, 59];
+                this.trainingSet[i, 16] = this.fullTrainingSet[i, 60];
+            }
+
+            this.testingSet = new float[70, 17];
+            for (int i = 0; i < numOfTesting; i++)
+            {
+                this.testingSet[i, 0] = toFloat(Math.Sqrt(Math.Pow((this.fullTestingSet[i, 0] + this.fullTestingSet[i, 36]), 2) + Math.Pow((this.fullTestingSet[i, 1] + this.fullTestingSet[i, 37]), 2)));
+                this.testingSet[i, 1] = toFloat(Math.Sqrt(Math.Pow((this.fullTestingSet[i, 0] + this.fullTestingSet[i, 30]), 2) + Math.Pow((this.fullTestingSet[i, 1] + this.fullTestingSet[i, 31]), 2)));
+                this.testingSet[i, 2] = toFloat(Math.Sqrt(Math.Pow((this.fullTestingSet[i, 0] + this.fullTestingSet[i, 24]), 2) + Math.Pow((this.fullTestingSet[i, 1] + this.fullTestingSet[i, 25]), 2)));
+                this.testingSet[i, 3] = toFloat(Math.Sqrt(Math.Pow((this.fullTestingSet[i, 0] + this.fullTestingSet[i, 37]), 2) + Math.Pow((this.fullTestingSet[i, 1] + this.fullTestingSet[i, 28]), 2)));
+                this.testingSet[i, 4] = toFloat(Math.Sqrt(Math.Pow((this.fullTestingSet[i, 0] + this.fullTestingSet[i, 33]), 2) + Math.Pow((this.fullTestingSet[i, 1] + this.fullTestingSet[i, 34]), 2)));
+                this.testingSet[i, 5] = toFloat(Math.Sqrt(Math.Pow((this.fullTestingSet[i, 0] + this.fullTestingSet[i, 39]), 2) + Math.Pow((this.fullTestingSet[i, 1] + this.fullTestingSet[i, 40]), 2)));
+                this.testingSet[i, 6] = toFloat(Math.Sqrt(Math.Pow((this.fullTestingSet[i, 36] + this.fullTestingSet[i, 6]), 2) + Math.Pow((this.fullTestingSet[i, 37] + this.fullTestingSet[i, 7]), 2)));
+                this.testingSet[i, 7] = toFloat(Math.Sqrt(Math.Pow((this.fullTestingSet[i, 30] + this.fullTestingSet[i, 6]), 2) + Math.Pow((this.fullTestingSet[i, 31] + this.fullTestingSet[i, 7]), 2)));
+                this.testingSet[i, 8] = toFloat(Math.Sqrt(Math.Pow((this.fullTestingSet[i, 39] + this.fullTestingSet[i, 9]), 2) + Math.Pow((this.fullTestingSet[i, 40] + this.fullTestingSet[i, 10]), 2)));
+                this.testingSet[i, 9] = toFloat(Math.Sqrt(Math.Pow((this.fullTestingSet[i, 33] + this.fullTestingSet[i, 9]), 2) + Math.Pow((this.fullTestingSet[i, 34] + this.fullTestingSet[i, 10]), 2)));
+                // 54-60 are expected outputs
+                this.trainingSet[i, 10] = this.fullTrainingSet[i, 54];
+                this.trainingSet[i, 11] = this.fullTrainingSet[i, 55];
+                this.trainingSet[i, 12] = this.fullTrainingSet[i, 56];
+                this.trainingSet[i, 13] = this.fullTrainingSet[i, 57];
+                this.trainingSet[i, 14] = this.fullTrainingSet[i, 58];
+                this.trainingSet[i, 15] = this.fullTrainingSet[i, 59];
+                this.trainingSet[i, 16] = this.fullTrainingSet[i, 60];
+            }
+        }
+
+
+        /// <summary>
+        /// Calls the MLP
+        /// </summary>
+        /// <param name="inputs">
+        ///     The skeleton points
+        /// </param>
+        /// <returns>
+        ///     A string representing the gesture classification
+        /// </returns>
         public String recall(float[] inputs)
         {
             float[] distances = measureInputs(inputs);
-            float[] outs = this.nn.RecallNetwork(distances);
-            foreach (float i in outs)
-            {
-                Console.WriteLine(i.ToString());
-            }
+
             return classifyGesture(distances);
         }
 
+        /// <summary>
+        /// Finds the Euclidean distance between two skeleton points using the x & y axis (not z)
+        /// </summary>
+        /// <param name="joints">
+        ///     An array of floats containing the used joint data
+        /// </param>
+        /// <returns>
+        ///     An array of distances
+        ///         Order is shown in the comments
+        /// </returns>
         public float[] measureInputs(float[] joints)
         {
             float[] measuredInputs = new float[10];
@@ -92,6 +222,16 @@ namespace ANN
             return measuredInputs;
         }
 
+        /// <summary>
+        ///     Handles the conversion of a double to float
+        ///     whilst avoiding hitting +/- infinity.
+        /// </summary>
+        /// <param name="input">
+        ///     The value to convert to float
+        /// </param>
+        /// <returns>
+        ///     A float value
+        /// </returns>
         private float toFloat(double input)
         {
             float result = (float)input;
@@ -108,6 +248,11 @@ namespace ANN
 
         }
 
+        /// <summary>
+        ///     Classifies 
+        /// </summary>
+        /// <param name="inputs"></param>
+        /// <returns></returns>
         public string classifyGesture(float[] inputs)
         {
             String gesture = "";
@@ -121,26 +266,26 @@ namespace ANN
                 switch (maxIndex)
                 {
                     case 0:
-                        //test
-                        break;
+                        // Play
+                        return "PLAY";
                     case 1:
-                        //test
-                        break;
+                        // Pause
+                        return "PAUSE";
                     case 2:
-                        //test
-                        break;
+                        // Skip Forward
+                        return "SKIP";
                     case 3:
-                        //test
-                        break;
+                        // Go Backward
+                        return "BACK";
                     case 4:
-                        //test
-                        break;
+                        // Volume Up
+                        return "VUP";
                     case 5:
-                        //test
-                        break;
+                        // Volume Down
+                        return "VDOWN";
                     case 6:
-                        //test
-                        break;
+                        // Mute
+                        return "MUTE";
                 }
             }
             return gesture;
