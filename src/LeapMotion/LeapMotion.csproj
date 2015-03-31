@@ -53,8 +53,11 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /yr "$(SolutionDir)lib\Leap.dll" "$(TargetDir)"
-xcopy /yr "$(SolutionDir)lib\LeapCSharp.dll" "$(TargetDir)"</PostBuildEvent>
+    <PostBuildEvent>XCOPY /YR "$(SolutionDir)lib\Leap.dll" "$(SolutionDir)bin\Debug\"
+XCOPY /YR "$(SolutionDir)lib\LeapCSharp.dll" "$(SolutionDir)\bin\Debug\"
+
+XCOPY /YR "$(SolutionDir)lib\Leap.dll" "$(SolutionDir)bin\Release\"
+XCOPY /YR "$(SolutionDir)lib\LeapCSharp.dll" "$(SolutionDir)\bin\Release\"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
