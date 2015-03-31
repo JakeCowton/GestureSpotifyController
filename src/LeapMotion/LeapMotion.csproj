@@ -35,7 +35,7 @@
   <ItemGroup>
     <Reference Include="LeapCSharp.NET4.0, Version=2.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\x64\LeapCSharp.NET4.0.dll</HintPath>
+      <HintPath>..\lib\LeapCSharp.NET4.0.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -53,8 +53,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /yr "$(SolutionDir)lib\x64\Leap.dll" "$(TargetDir)"
-xcopy /yr "$(SolutionDir)lib\x64\LeapCSharp.dll" "$(TargetDir)"</PostBuildEvent>
+    <PostBuildEvent>xcopy /yr "$(SolutionDir)lib\Leap.dll" "$(TargetDir)"
+xcopy /yr "$(SolutionDir)lib\LeapCSharp.dll" "$(TargetDir)"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
