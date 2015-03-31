@@ -18,6 +18,16 @@ namespace ANN
         private MLP nn;
 
         /// <summary>
+        /// All of the values from training data (unfiltered)
+        /// </summary>
+        private float[,] fullTrainingSet;
+
+        /// <summary>
+        /// All of the values from testing data (unfiltered)
+        /// </summary>
+        private float[,] fullTestingSet;
+
+        /// <summary>
         /// 2d array of training data
         /// </summary>
         private float[,] trainingSet;
@@ -35,9 +45,27 @@ namespace ANN
             int[] hiddenStructure = {4};
             // 10 Inputs | 7 Outputs | 4 hidden ...
             nn = new MLP(10, 7, hiddenStructure, 0.2F, 0.9F);
+            trainMLP();
+        }
+
+        /// <summary>
+        /// Trains & tests the MLP
+        /// </summary>
+        private void trainMLP()
+        {
+            // Get the training and testing data
             getTrainingData();
             getTestingData();
-            trainMLP();
+
+            // Get training length
+            int numOfTraining = 280;
+            // Get testing length
+            int numOfTesting = 70;
+
+            // Filter the data needed
+
+            this.nn.TrainNetwork(numOfTraining, trainingSet);
+            this.nn.TestNetwork(numOfTesting, testingSet);
         }
 
         /// <summary>
@@ -49,13 +77,13 @@ namespace ANN
             String training_file = System.IO.File.ReadAllText(path);
 
             int i = 0, j = 0;
-            this.trainingSet = new float[280, 61];
+            this.fullTrainingSet = new float[280, 61];
             foreach (var row in training_file.Split('\n'))
             {
                 j = 0;
                 foreach (var col in row.Trim().Split(','))
                 {
-                    this.trainingSet[i, j] = float.Parse(col.Trim());
+                    this.fullTrainingSet[i, j] = float.Parse(col.Trim());
                     j++;
                 }
                 i++;
@@ -63,40 +91,27 @@ namespace ANN
             Console.WriteLine("Training Data Received");
         }
 
+        /// <summary>
+        /// Gets the testing data from the file
+        /// </summary>
         private void getTestingData()
         {
             string path = @"C:\Users\Jake\Desktop\testing_data.txt";
             String testing_file = System.IO.File.ReadAllText(path);
 
             int i = 0, j = 0;
-            this.testingSet = new float[70, 61];
+            this.fullTestingSet = new float[70, 61];
             foreach (var row in testing_file.Split('\n'))
             {
                 j = 0;
                 foreach (var col in row.Trim().Split(','))
                 {
-                    this.testingSet[i, j] = float.Parse(col.Trim());
+                    this.fullTestingSet[i, j] = float.Parse(col.Trim());
                     j++;
                 }
                 i++;
             }
             Console.WriteLine("Testing Data Received");
-        }
-
-        /// <summary>
-        /// Trains & tests the MLP
-        /// </summary>
-        private void trainMLP()
-        {
-            // Get training data
-            // Get testing data
-            // Get training length
-            int numOfTraining = 0;
-            // Get testing length
-            int numOfTesting = 0;
-
-            this.nn.TrainNetwork(numOfTraining, trainingSet);
-            this.nn.TestNetwork(numOfTesting, testingSet);
         }
 
         /// <summary>
