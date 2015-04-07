@@ -157,13 +157,13 @@ namespace ANN
                 this.testingSet[i, 8] = toFloat(Math.Sqrt(Math.Pow((this.fullTestingSet[i, 39] + this.fullTestingSet[i, 9]), 2) + Math.Pow((this.fullTestingSet[i, 40] + this.fullTestingSet[i, 10]), 2)));
                 this.testingSet[i, 9] = toFloat(Math.Sqrt(Math.Pow((this.fullTestingSet[i, 33] + this.fullTestingSet[i, 9]), 2) + Math.Pow((this.fullTestingSet[i, 34] + this.fullTestingSet[i, 10]), 2)));
                 // 54-60 are expected outputs
-                this.trainingSet[i, 10] = this.fullTrainingSet[i, 54];
-                this.trainingSet[i, 11] = this.fullTrainingSet[i, 55];
-                this.trainingSet[i, 12] = this.fullTrainingSet[i, 56];
-                this.trainingSet[i, 13] = this.fullTrainingSet[i, 57];
-                this.trainingSet[i, 14] = this.fullTrainingSet[i, 58];
-                this.trainingSet[i, 15] = this.fullTrainingSet[i, 59];
-                this.trainingSet[i, 16] = this.fullTrainingSet[i, 60];
+                this.testingSet[i, 10] = this.fullTestingSet[i, 54];
+                this.testingSet[i, 11] = this.fullTestingSet[i, 55];
+                this.testingSet[i, 12] = this.fullTestingSet[i, 56];
+                this.testingSet[i, 13] = this.fullTestingSet[i, 57];
+                this.testingSet[i, 14] = this.fullTestingSet[i, 58];
+                this.testingSet[i, 15] = this.fullTestingSet[i, 59];
+                this.testingSet[i, 16] = this.fullTestingSet[i, 60];
             }
         }
 
