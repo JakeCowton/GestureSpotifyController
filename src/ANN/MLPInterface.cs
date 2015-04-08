@@ -58,12 +58,12 @@ namespace ANN
             getTestingData();
 
             // Get training length
-            int numOfTraining = 280;
+            int numOfTraining = 5600;
             // Get testing length
-            int numOfTesting = 70;
+            int numOfTesting = 700;
 
             // Filter the data needed
-            filterFullData(280, 70);
+            filterFullData(5600, 700);
 
             this.nn.TrainNetwork(numOfTraining, trainingSet);
             this.nn.TestNetwork(numOfTesting, testingSet);
@@ -74,11 +74,11 @@ namespace ANN
         /// </summary>
         private void getTrainingData()
         {
-            string path = @"..\..\..\training-files\training_data.txt";
+            string path = @"..\..\..\training-files\training-data.txt";
             String training_file = System.IO.File.ReadAllText(path);
 
             int i = 0, j = 0;
-            this.fullTrainingSet = new float[280, 61];
+            this.fullTrainingSet = new float[5600, 61];
             foreach (var row in training_file.Split('\n'))
             {
                 j = 0;
@@ -97,11 +97,11 @@ namespace ANN
         /// </summary>
         private void getTestingData()
         {
-            string path = @"..\..\..\training-files\testing_data.txt";
+            string path = @"..\..\..\training-files\testing-data.txt";
             String testing_file = System.IO.File.ReadAllText(path);
 
             int i = 0, j = 0;
-            this.fullTestingSet = new float[70, 61];
+            this.fullTestingSet = new float[700, 61];
             foreach (var row in testing_file.Split('\n'))
             {
                 j = 0;
@@ -120,7 +120,7 @@ namespace ANN
         /// </summary>
         private void filterFullData(int numOfTraining, int numOfTesting)
         {
-            this.trainingSet = new float[280, 17];
+            this.trainingSet = new float[5600, 17];
             for (int i = 0; i < numOfTraining; i++)
             {
                 this.trainingSet[i, 0] = toFloat(Math.Sqrt(Math.Pow((this.fullTrainingSet[i, 0] + this.fullTrainingSet[i, 36]), 2) + Math.Pow((this.fullTrainingSet[i, 1] + this.fullTrainingSet[i, 37]), 2)));
@@ -143,7 +143,7 @@ namespace ANN
                 this.trainingSet[i, 16] = this.fullTrainingSet[i, 60];
             }
 
-            this.testingSet = new float[70, 17];
+            this.testingSet = new float[700, 17];
             for (int i = 0; i < numOfTesting; i++)
             {
                 this.testingSet[i, 0] = toFloat(Math.Sqrt(Math.Pow((this.fullTestingSet[i, 0] + this.fullTestingSet[i, 36]), 2) + Math.Pow((this.fullTestingSet[i, 1] + this.fullTestingSet[i, 37]), 2)));
@@ -157,13 +157,13 @@ namespace ANN
                 this.testingSet[i, 8] = toFloat(Math.Sqrt(Math.Pow((this.fullTestingSet[i, 39] + this.fullTestingSet[i, 9]), 2) + Math.Pow((this.fullTestingSet[i, 40] + this.fullTestingSet[i, 10]), 2)));
                 this.testingSet[i, 9] = toFloat(Math.Sqrt(Math.Pow((this.fullTestingSet[i, 33] + this.fullTestingSet[i, 9]), 2) + Math.Pow((this.fullTestingSet[i, 34] + this.fullTestingSet[i, 10]), 2)));
                 // 54-60 are expected outputs
-                this.trainingSet[i, 10] = this.fullTrainingSet[i, 54];
-                this.trainingSet[i, 11] = this.fullTrainingSet[i, 55];
-                this.trainingSet[i, 12] = this.fullTrainingSet[i, 56];
-                this.trainingSet[i, 13] = this.fullTrainingSet[i, 57];
-                this.trainingSet[i, 14] = this.fullTrainingSet[i, 58];
-                this.trainingSet[i, 15] = this.fullTrainingSet[i, 59];
-                this.trainingSet[i, 16] = this.fullTrainingSet[i, 60];
+                this.testingSet[i, 10] = this.fullTestingSet[i, 54];
+                this.testingSet[i, 11] = this.fullTestingSet[i, 55];
+                this.testingSet[i, 12] = this.fullTestingSet[i, 56];
+                this.testingSet[i, 13] = this.fullTestingSet[i, 57];
+                this.testingSet[i, 14] = this.fullTestingSet[i, 58];
+                this.testingSet[i, 15] = this.fullTestingSet[i, 59];
+                this.testingSet[i, 16] = this.fullTestingSet[i, 60];
             }
         }
 
@@ -260,7 +260,7 @@ namespace ANN
             // Clasify outputs
             // Maybe if highest is over 0.75?
             float maxValue = outputs.Max();
-            if (maxValue > 0.75F)
+            if (maxValue > 0.95F)
             {
                 int maxIndex = outputs.ToList().IndexOf(maxValue);
                 switch (maxIndex)

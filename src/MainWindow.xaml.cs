@@ -407,7 +407,7 @@ namespace SpotifyKinectInterface
                     drawingContext.DrawEllipse(drawBrush, null, this.SkeletonPointToScreen(joint.Position), JointThickness, JointThickness);
                 }
             }
-            if (tickCounter % 10 == 0)
+            if (tickCounter % 50 == 0)
             {
                 string gesture = this.mlpInterface.recall(dumpJointData(skeleton));
                 if (!gesture.Equals(""))
