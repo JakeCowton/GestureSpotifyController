@@ -86,6 +86,8 @@ namespace ANN
 
             while ((error > 0.002) && (count < 50000))
             {
+                Console.WriteLine("Error: " + error);
+                Console.WriteLine("Count: " + count);
                 error = 0;
                 count += 1;
                 int lastInput = 0;
@@ -121,19 +123,54 @@ namespace ANN
         /// </param>
         public void TestNetwork(int numInputs, float[,] testingSet)
         {
+            var totalEntries = numInputValues + numOutputs;
+            var outputCode = 0;
+            float[,] outputEntries = new float[numOutputs, numOutputs];
             for (int i = 0; i < numInputs; i++)
             {
-                Console.WriteLine(i + 1 + ":");
-                for (int j = 0; j < (numInputValues + numOutputs); j++)
+                for (int z = 0; z < numOutputs; z++)
                 {
-                    Console.Write(testingSet[i, j] + ";");
+                    if (testingSet[i, numInputValues + z] == 1F)
+                    {
+                        outputCode = z;
+                        break;
+                    }
                 }
+                  
                 for (int j = 0; j < numInputValues; j++)
                 {
                     neuralNetwork.SetInput(j, testingSet[i, j]);
                 }
+                //Console.Write("Expected output: ");
+                for (int x = numInputValues; x < numInputValues + numOutputs - 1; x++)
+                {
+                    //Console.Write(testingSet[i, x] + " , ");
+                }
+                //Console.WriteLine(testingSet[i, numInputValues + numOutputs - 1]);
                 neuralNetwork.FeedForward();
+                //Console.Write("Actual output  : ");
+                for (int k = 0; k < numOutputs - 1; k++)
+                {
+                    //Console.Write(neuralNetwork.GetOutput(k) + " , ");
+                    outputEntries[outputCode, k] += neuralNetwork.GetOutput(k);
+                           
+                }
+                //Console.WriteLine(neuralNetwork.GetOutput(numOutputs - 1));
+                outputEntries[outputCode, numOutputs - 1] += neuralNetwork.GetOutput(numOutputs - 1);
             }
+            for (int a = 0; a < numOutputs; a++)
+            {
+                Console.WriteLine("****************");
+                Console.WriteLine("*    Test " + (a + 1) + "    *");
+                Console.WriteLine("****************");
+                for (int b = 0; b < numOutputs; b++)
+                {
+                    outputEntries[a, b] /= (numInputs/numOutputs);
+                    outputEntries[a, b] *= 100;
+                    Console.WriteLine(b + ") " + outputEntries[a, b] + "%");
+                }
+            }
+
         }
 
         /// <summary>
