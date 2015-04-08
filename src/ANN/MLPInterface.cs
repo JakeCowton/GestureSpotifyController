@@ -44,7 +44,7 @@ namespace ANN
         {
             int[] hiddenStructure = {4};
             // 10 Inputs | 7 Outputs | 4 hidden ...
-            nn = new MLP(10, 7, hiddenStructure, 0.2F, 0.9F);
+            nn = new MLP(10, 7, hiddenStructure, 0.5F, 0.9F);
             trainMLP();
         }
 
