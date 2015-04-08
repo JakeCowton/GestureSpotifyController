@@ -161,7 +161,7 @@ namespace ANN
             for (int a = 0; a < numOutputs; a++)
             {
                 Console.WriteLine("****************");
-                Console.WriteLine("*    Test " + (a + 1) + "    *");
+                Console.WriteLine("*    Test " + a + "    *");
                 Console.WriteLine("****************");
                 for (int b = 0; b < numOutputs; b++)
                 {
