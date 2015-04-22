@@ -42,8 +42,8 @@ namespace ANN
         /// </summary>
         public MLPInterface()
         {
-            int[] hiddenStructure = {4};
-            // 10 Inputs | 7 Outputs | 4 hidden ...
+            int[] hiddenStructure = {8};
+            // 10 Inputs | 7 Outputs | 8 hidden ...
             nn = new MLP(10, 7, hiddenStructure, 0.5F, 0.9F);
             trainMLP();
         }
