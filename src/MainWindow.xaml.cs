@@ -10,6 +10,8 @@ namespace SpotifyKinectInterface
     using System.Collections.Generic;
     using System.IO;
     using System.Windows;
+    using System.Windows.Forms;
+    using System.Diagnostics;
     using System.Windows.Media;
     using System.ComponentModel;
     using Microsoft.Kinect;
@@ -428,28 +430,43 @@ namespace SpotifyKinectInterface
         /// </param>
         private void runCommand(String command)
         {
+
+            Process spotify = new Process();
+            spotify.StartInfo.FileName = @"C:\Users\Jake\AppData\Roaming\Spotify\Spotify.exe";
+            spotify.Start();
+
             switch (command)
             {
                 case "PLAY":
                     Console.WriteLine("Play");
+                    SendKeys.SendWait(" ");
                     break;
                 case "PAUSE":
                     Console.WriteLine("Pause");
+                    SendKeys.SendWait(" ");
                     break;
                 case "SKIP":
                     Console.WriteLine("Skip");
+                    SendKeys.SendWait("^{RIGHT}");
                     break;
                 case "BACK":
                     Console.WriteLine("Back");
+                    SendKeys.SendWait("^{LEFT}");
                     break;
                 case "VUP":
                     Console.WriteLine("Volume Up");
+                    SendKeys.SendWait("^{UP}");
                     break;
                 case "VDOWN":
                     Console.WriteLine("Volume Down");
+                    SendKeys.SendWait("^{DOWN}");
                     break;
                 case "MUTE":
                     Console.WriteLine("Mute");
+                    for (int i = 0; i < 16; i++)
+                    {
+                        SendKeys.SendWait("^{DOWN}");
+                    }
                     break;
             }
         }
