@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Microsoft.Kinect;
 using Microsoft.Speech.AudioFormat;
 using Microsoft.Speech.Recognition;
@@ -107,28 +109,43 @@ namespace SpotifyKinectInterface.VoiceControl
 
             if (e.Result.Confidence >= ConfidenceThreshold)
             {
+
+                Process spotify = new Process();
+                spotify.StartInfo.FileName = @"C:\Users\Jake\AppData\Roaming\Spotify\Spotify.exe";
+                spotify.Start();
+
                 switch (e.Result.Semantics.Value.ToString())
                 {
                     case "PLAY":
                         Console.WriteLine("Play");
+                        SendKeys.SendWait(" ");
                         break;
                     case "PAUSE":
                         Console.WriteLine("Pause");
+                        SendKeys.SendWait(" ");
                         break;
                     case "NEXT":
                         Console.WriteLine("Next");
+                        SendKeys.SendWait("^{RIGHT}");
                         break;
                     case "PREVIOUS":
                         Console.WriteLine("Previous");
-                        break;
-                    case "MUTE":
-                        Console.WriteLine("Mute");
+                        SendKeys.SendWait("^{LEFT}");
                         break;
                     case "VOLUME UP":
                         Console.WriteLine("Volume up");
+                        SendKeys.SendWait("^{UP}");
                         break;
                     case "VOLUME DOWN":
                         Console.WriteLine("Volume down");
+                        SendKeys.SendWait("^{DOWN}");
+                        break;
+                    case "MUTE":
+                        Console.WriteLine("Mute");
+                        for (int i = 0; i < 16; i++)
+                        {
+                            SendKeys.SendWait("^{DOWN}");
+                        }
                         break;
                 }
             }
@@ -146,7 +163,7 @@ namespace SpotifyKinectInterface.VoiceControl
 
         public void kill()
         {
-
+            // this.speechEngine.Dispose();
         }
 
     }
