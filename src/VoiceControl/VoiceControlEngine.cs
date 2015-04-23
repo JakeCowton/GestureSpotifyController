@@ -163,7 +163,7 @@ namespace SpotifyKinectInterface.VoiceControl
 
         public void kill()
         {
-            // this.speechEngine.Dispose();
+            this.speechEngine.Dispose();
         }
 
     }
