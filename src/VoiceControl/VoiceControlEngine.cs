@@ -109,11 +109,6 @@ namespace SpotifyKinectInterface.VoiceControl
 
             if (e.Result.Confidence >= ConfidenceThreshold)
             {
-
-                Process spotify = new Process();
-                spotify.StartInfo.FileName = @"C:\Users\Jake\AppData\Roaming\Spotify\Spotify.exe";
-                spotify.Start();
-
                 switch (e.Result.Semantics.Value.ToString())
                 {
                     case "PLAY":

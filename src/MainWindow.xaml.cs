@@ -430,11 +430,6 @@ namespace SpotifyKinectInterface
         /// </param>
         private void runCommand(String command)
         {
-
-            Process spotify = new Process();
-            spotify.StartInfo.FileName = @"C:\Users\Jake\AppData\Roaming\Spotify\Spotify.exe";
-            spotify.Start();
-
             switch (command)
             {
                 case "PLAY":
