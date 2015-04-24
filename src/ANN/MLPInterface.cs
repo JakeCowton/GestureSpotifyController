@@ -58,12 +58,12 @@ namespace ANN
             getTestingData();
 
             // Get training length
-            int numOfTraining = 5600;
+            int numOfTraining = 11200;
             // Get testing length
-            int numOfTesting = 700;
+            int numOfTesting = 1400;
 
             // Filter the data needed
-            filterFullData(5600, 700);
+            filterFullData(11200, 1400);
 
             this.nn.TrainNetwork(numOfTraining, trainingSet);
             this.nn.TestNetwork(numOfTesting, testingSet);
@@ -78,7 +78,7 @@ namespace ANN
             String training_file = System.IO.File.ReadAllText(path);
 
             int i = 0, j = 0;
-            this.fullTrainingSet = new float[5600, 61];
+            this.fullTrainingSet = new float[11200, 61];
             foreach (var row in training_file.Split('\n'))
             {
                 j = 0;
@@ -101,7 +101,7 @@ namespace ANN
             String testing_file = System.IO.File.ReadAllText(path);
 
             int i = 0, j = 0;
-            this.fullTestingSet = new float[700, 61];
+            this.fullTestingSet = new float[1400, 61];
             foreach (var row in testing_file.Split('\n'))
             {
                 j = 0;
@@ -120,7 +120,7 @@ namespace ANN
         /// </summary>
         private void filterFullData(int numOfTraining, int numOfTesting)
         {
-            this.trainingSet = new float[5600, 17];
+            this.trainingSet = new float[11200, 17];
             for (int i = 0; i < numOfTraining; i++)
             {
                 this.trainingSet[i, 0] = toFloat(Math.Sqrt(Math.Pow((this.fullTrainingSet[i, 0] + this.fullTrainingSet[i, 36]), 2) + Math.Pow((this.fullTrainingSet[i, 1] + this.fullTrainingSet[i, 37]), 2)));
@@ -143,7 +143,7 @@ namespace ANN
                 this.trainingSet[i, 16] = this.fullTrainingSet[i, 60];
             }
 
-            this.testingSet = new float[700, 17];
+            this.testingSet = new float[1400, 17];
             for (int i = 0; i < numOfTesting; i++)
             {
                 this.testingSet[i, 0] = toFloat(Math.Sqrt(Math.Pow((this.fullTestingSet[i, 0] + this.fullTestingSet[i, 36]), 2) + Math.Pow((this.fullTestingSet[i, 1] + this.fullTestingSet[i, 37]), 2)));
