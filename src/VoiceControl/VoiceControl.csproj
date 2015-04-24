@@ -53,6 +53,12 @@
     <Compile Include="VoiceControlEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MediaController\MediaController.csproj">
+      <Project>{1947d656-979d-4ca1-83c2-63450ccbe4d5}</Project>
+      <Name>MediaController</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -98,6 +98,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
@@ -123,6 +124,10 @@
     <ProjectReference Include="LeapMotion\LeapMotion.csproj">
       <Project>{91714c67-3198-4448-aed0-cfcc4e981ca7}</Project>
       <Name>LeapMotion</Name>
+    </ProjectReference>
+    <ProjectReference Include="MediaController\MediaController.csproj">
+      <Project>{1947d656-979d-4ca1-83c2-63450ccbe4d5}</Project>
+      <Name>MediaController</Name>
     </ProjectReference>
     <ProjectReference Include="VoiceControl\VoiceControl.csproj">
       <Project>{ff239b1d-50b4-4768-b012-4d2f893ae56f}</Project>

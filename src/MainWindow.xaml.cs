@@ -15,6 +15,7 @@ namespace SpotifyKinectInterface
     using Microsoft.Kinect;
     using SpotifyKinectInterface.VoiceControl;
     using ANN;
+    using MediaController;
 
 
     /// <summary>
@@ -113,11 +114,17 @@ namespace SpotifyKinectInterface
         private Boolean Playing;
 
         /// <summary>
+        /// The object which controls spotify
+        /// </summary>
+        private SpotifyController spotifyController;
+
+        /// <summary>
         /// Initializes a new instance of the MainWindow class.
         /// </summary>
         public MainWindow()
         {
             InitializeComponent();
+            this.spotifyController = new SpotifyController();
         }
 
         /// <summary>
@@ -432,24 +439,31 @@ namespace SpotifyKinectInterface
             {
                 case "PLAY":
                     Console.WriteLine("Play");
+                    this.spotifyController.play_pause();
                     break;
                 case "PAUSE":
                     Console.WriteLine("Pause");
+                    this.spotifyController.play_pause();
                     break;
                 case "SKIP":
                     Console.WriteLine("Skip");
+                    this.spotifyController.next();
                     break;
                 case "BACK":
                     Console.WriteLine("Back");
+                    this.spotifyController.previous();
                     break;
                 case "VUP":
                     Console.WriteLine("Volume Up");
+                    this.spotifyController.volumeUp();
                     break;
                 case "VDOWN":
                     Console.WriteLine("Volume Down");
+                    this.spotifyController.volumeDown();
                     break;
                 case "MUTE":
                     Console.WriteLine("Mute");
+                    this.spotifyController.mute();
                     break;
             }
         }

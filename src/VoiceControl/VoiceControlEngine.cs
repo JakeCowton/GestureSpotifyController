@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Kinect;
 using Microsoft.Speech.AudioFormat;
 using Microsoft.Speech.Recognition;
+using MediaController;
 
 namespace SpotifyKinectInterface.VoiceControl
 {
@@ -22,12 +23,19 @@ namespace SpotifyKinectInterface.VoiceControl
         /// </summary>
         private SpeechRecognitionEngine speechEngine;
 
+        /// <summary>
+        /// The speech recogniser information
+        /// </summary>
         private RecognizerInfo ri;
+
+
+        private SpotifyController spotifyController;
 
         public VoiceControlEngine(KinectSensor sensor)
         {
             this.sensor = sensor;
             this.ri = GetKinectRecognizer();
+            this.spotifyController = new SpotifyController();
         }
 
         /// <summary>
@@ -79,7 +87,6 @@ namespace SpotifyKinectInterface.VoiceControl
                 speechEngine.LoadGrammar(g);
 
                 speechEngine.SpeechRecognized += SpeechRecognized;
-                speechEngine.SpeechRecognitionRejected += SpeechRejected;
 
                 // For long recognition sessions (a few hours or more), it may be beneficial to turn off adaptation of the acoustic model. 
                 // This will prevent recognition accuracy from degrading over time.
@@ -111,42 +118,39 @@ namespace SpotifyKinectInterface.VoiceControl
                 {
                     case "PLAY":
                         Console.WriteLine("Play");
+                        this.spotifyController.play_pause();
                         break;
                     case "PAUSE":
                         Console.WriteLine("Pause");
+                        this.spotifyController.play_pause();
                         break;
                     case "NEXT":
                         Console.WriteLine("Next");
+                        this.spotifyController.next();
                         break;
                     case "PREVIOUS":
                         Console.WriteLine("Previous");
-                        break;
-                    case "MUTE":
-                        Console.WriteLine("Mute");
+                        this.spotifyController.previous();
                         break;
                     case "VOLUME UP":
                         Console.WriteLine("Volume up");
+                        this.spotifyController.volumeUp();
                         break;
                     case "VOLUME DOWN":
                         Console.WriteLine("Volume down");
+                        this.spotifyController.volumeDown();
+                        break;
+                    case "MUTE":
+                        Console.WriteLine("Mute");
+                        this.spotifyController.mute();
                         break;
                 }
             }
         }
 
-        /// <summary>
-        /// Handler for rejected speech events.
-        /// </summary>
-        /// <param name="sender">object sending the event.</param>
-        /// <param name="e">event arguments.</param>
-        private void SpeechRejected(object sender, SpeechRecognitionRejectedEventArgs e)
-        {
-            Console.WriteLine("Rejected");
-        }
-
         public void kill()
         {
-
+            this.speechEngine.Dispose();
         }
 
     }

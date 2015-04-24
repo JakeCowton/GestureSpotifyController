@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SoundcloudInterface")]
+[assembly: AssemblyTitle("MediaController")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("SoundcloudInterface")]
+[assembly: AssemblyProduct("MediaController")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("dc84e85b-4159-4946-b9d6-c0ac7606d2c4")]
+[assembly: Guid("44fb2c1a-56e5-4617-bb04-eb4a0b45180c")]
 
 // Version information for an assembly consists of the following four values:
 //
