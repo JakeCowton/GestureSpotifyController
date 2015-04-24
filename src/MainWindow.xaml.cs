@@ -328,7 +328,7 @@ namespace SpotifyKinectInterface
         /// <param name="skeleton">skeleton to dump joint data for</param>
         private float[] dumpJointData(Skeleton skeleton)
         {
-            float[] joints = new float[18] {
+            float[] joints = new float[20] {
                 skeleton.Joints[JointType.Head].Position.X, // 0
                 skeleton.Joints[JointType.Head].Position.Y, // 1
                 skeleton.Joints[JointType.ShoulderLeft].Position.X, //2
@@ -346,7 +346,9 @@ namespace SpotifyKinectInterface
                 skeleton.Joints[JointType.HandLeft].Position.X, //14
                 skeleton.Joints[JointType.HandLeft].Position.Y, //15
                 skeleton.Joints[JointType.HandRight].Position.X, //16
-                skeleton.Joints[JointType.HandRight].Position.Y //17
+                skeleton.Joints[JointType.HandRight].Position.Y, //17
+                skeleton.Joints[JointType.Spine].Position.X, //18
+                skeleton.Joints[JointType.Spine].Position.Y //19
             };
 
             return joints;
