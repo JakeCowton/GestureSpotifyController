@@ -10,13 +10,13 @@ namespace SpotifyKinectInterface
     using System.Collections.Generic;
     using System.IO;
     using System.Windows;
-    using System.Windows.Forms;
     using System.Diagnostics;
     using System.Windows.Media;
     using System.ComponentModel;
     using Microsoft.Kinect;
     using SpotifyKinectInterface.VoiceControl;
     using ANN;
+    using MediaController;
 
 
     /// <summary>
@@ -115,11 +115,17 @@ namespace SpotifyKinectInterface
         private Boolean Playing;
 
         /// <summary>
+        /// The object which controls spotify
+        /// </summary>
+        private SpotifyController spotifyController;
+
+        /// <summary>
         /// Initializes a new instance of the MainWindow class.
         /// </summary>
         public MainWindow()
         {
             InitializeComponent();
+            this.spotifyController = new SpotifyController();
         }
 
         /// <summary>
@@ -434,34 +440,31 @@ namespace SpotifyKinectInterface
             {
                 case "PLAY":
                     Console.WriteLine("Play");
-                    SendKeys.SendWait(" ");
+                    this.spotifyController.play_pause();
                     break;
                 case "PAUSE":
                     Console.WriteLine("Pause");
-                    SendKeys.SendWait(" ");
+                    this.spotifyController.play_pause();
                     break;
                 case "SKIP":
                     Console.WriteLine("Skip");
-                    SendKeys.SendWait("^{RIGHT}");
+                    this.spotifyController.next();
                     break;
                 case "BACK":
                     Console.WriteLine("Back");
-                    SendKeys.SendWait("^{LEFT}");
+                    this.spotifyController.previous();
                     break;
                 case "VUP":
                     Console.WriteLine("Volume Up");
-                    SendKeys.SendWait("^{UP}");
+                    this.spotifyController.volumeUp();
                     break;
                 case "VDOWN":
                     Console.WriteLine("Volume Down");
-                    SendKeys.SendWait("^{DOWN}");
+                    this.spotifyController.volumeDown();
                     break;
                 case "MUTE":
                     Console.WriteLine("Mute");
-                    for (int i = 0; i < 16; i++)
-                    {
-                        SendKeys.SendWait("^{DOWN}");
-                    }
+                    this.spotifyController.mute();
                     break;
             }
         }
