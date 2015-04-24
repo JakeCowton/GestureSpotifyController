@@ -43,8 +43,8 @@ namespace ANN
         public MLPInterface()
         {
             int[] hiddenStructure = {8};
-            // 10 Inputs | 7 Outputs | 8 hidden ...
-            nn = new MLP(10, 7, hiddenStructure, 0.5F, 0.9F);
+            // 12 Inputs | 7 Outputs | 8 hidden ...
+            nn = new MLP(12, 7, hiddenStructure, 0.5F, 0.9F);
             trainMLP();
         }
 
@@ -120,7 +120,7 @@ namespace ANN
         /// </summary>
         private void filterFullData(int numOfTraining, int numOfTesting)
         {
-            this.trainingSet = new float[11200, 17];
+            this.trainingSet = new float[11200, 19];
             for (int i = 0; i < numOfTraining; i++)
             {
                 this.trainingSet[i, 0] = toFloat(Math.Sqrt(Math.Pow((this.fullTrainingSet[i, 0] + this.fullTrainingSet[i, 36]), 2) + Math.Pow((this.fullTrainingSet[i, 1] + this.fullTrainingSet[i, 37]), 2)));
@@ -133,17 +133,22 @@ namespace ANN
                 this.trainingSet[i, 7] = toFloat(Math.Sqrt(Math.Pow((this.fullTrainingSet[i, 30] + this.fullTrainingSet[i, 6]), 2) + Math.Pow((this.fullTrainingSet[i, 31] + this.fullTrainingSet[i, 7]), 2)));
                 this.trainingSet[i, 8] = toFloat(Math.Sqrt(Math.Pow((this.fullTrainingSet[i, 39] + this.fullTrainingSet[i, 9]), 2) + Math.Pow((this.fullTrainingSet[i, 40] + this.fullTrainingSet[i, 10]), 2)));
                 this.trainingSet[i, 9] = toFloat(Math.Sqrt(Math.Pow((this.fullTrainingSet[i, 33] + this.fullTrainingSet[i, 9]), 2) + Math.Pow((this.fullTrainingSet[i, 34] + this.fullTrainingSet[i, 10]), 2)));
+                // L hand to spine
+                this.trainingSet[i, 10] = toFloat(Math.Sqrt(Math.Pow((this.fullTrainingSet[i, 15] + this.fullTrainingSet[i, 39]), 2) + Math.Pow((this.fullTrainingSet[i, 16] + this.fullTrainingSet[i, 40]), 2)));
+                // R hand to spine
+                this.trainingSet[i, 11] = toFloat(Math.Sqrt(Math.Pow((this.fullTrainingSet[i, 15] + this.fullTrainingSet[i, 42]), 2) + Math.Pow((this.fullTrainingSet[i, 16] + this.fullTrainingSet[i, 43]), 2)));
+                
                 // 54-60 are expected outputs
-                this.trainingSet[i, 10] = this.fullTrainingSet[i, 54];
-                this.trainingSet[i, 11] = this.fullTrainingSet[i, 55];
-                this.trainingSet[i, 12] = this.fullTrainingSet[i, 56];
-                this.trainingSet[i, 13] = this.fullTrainingSet[i, 57];
-                this.trainingSet[i, 14] = this.fullTrainingSet[i, 58];
-                this.trainingSet[i, 15] = this.fullTrainingSet[i, 59];
-                this.trainingSet[i, 16] = this.fullTrainingSet[i, 60];
+                this.trainingSet[i, 12] = this.fullTrainingSet[i, 54];
+                this.trainingSet[i, 13] = this.fullTrainingSet[i, 55];
+                this.trainingSet[i, 14] = this.fullTrainingSet[i, 56];
+                this.trainingSet[i, 15] = this.fullTrainingSet[i, 57];
+                this.trainingSet[i, 16] = this.fullTrainingSet[i, 58];
+                this.trainingSet[i, 17] = this.fullTrainingSet[i, 59];
+                this.trainingSet[i, 18] = this.fullTrainingSet[i, 60];
             }
 
-            this.testingSet = new float[1400, 17];
+            this.testingSet = new float[1400, 19];
             for (int i = 0; i < numOfTesting; i++)
             {
                 this.testingSet[i, 0] = toFloat(Math.Sqrt(Math.Pow((this.fullTestingSet[i, 0] + this.fullTestingSet[i, 36]), 2) + Math.Pow((this.fullTestingSet[i, 1] + this.fullTestingSet[i, 37]), 2)));
@@ -156,14 +161,18 @@ namespace ANN
                 this.testingSet[i, 7] = toFloat(Math.Sqrt(Math.Pow((this.fullTestingSet[i, 30] + this.fullTestingSet[i, 6]), 2) + Math.Pow((this.fullTestingSet[i, 31] + this.fullTestingSet[i, 7]), 2)));
                 this.testingSet[i, 8] = toFloat(Math.Sqrt(Math.Pow((this.fullTestingSet[i, 39] + this.fullTestingSet[i, 9]), 2) + Math.Pow((this.fullTestingSet[i, 40] + this.fullTestingSet[i, 10]), 2)));
                 this.testingSet[i, 9] = toFloat(Math.Sqrt(Math.Pow((this.fullTestingSet[i, 33] + this.fullTestingSet[i, 9]), 2) + Math.Pow((this.fullTestingSet[i, 34] + this.fullTestingSet[i, 10]), 2)));
+                // L hand to spine
+                this.testingSet[i, 10] = toFloat(Math.Sqrt(Math.Pow((this.fullTestingSet[i, 15] + this.fullTestingSet[i, 39]), 2) + Math.Pow((this.fullTestingSet[i, 16] + this.fullTestingSet[i, 40]), 2)));
+                // R hand to spine
+                this.testingSet[i, 11] = toFloat(Math.Sqrt(Math.Pow((this.fullTestingSet[i, 15] + this.fullTestingSet[i, 42]), 2) + Math.Pow((this.fullTestingSet[i, 16] + this.fullTestingSet[i, 43]), 2)));
                 // 54-60 are expected outputs
-                this.testingSet[i, 10] = this.fullTestingSet[i, 54];
-                this.testingSet[i, 11] = this.fullTestingSet[i, 55];
-                this.testingSet[i, 12] = this.fullTestingSet[i, 56];
-                this.testingSet[i, 13] = this.fullTestingSet[i, 57];
-                this.testingSet[i, 14] = this.fullTestingSet[i, 58];
-                this.testingSet[i, 15] = this.fullTestingSet[i, 59];
-                this.testingSet[i, 16] = this.fullTestingSet[i, 60];
+                this.testingSet[i, 12] = this.fullTestingSet[i, 54];
+                this.testingSet[i, 13] = this.fullTestingSet[i, 55];
+                this.testingSet[i, 14] = this.fullTestingSet[i, 56];
+                this.testingSet[i, 15] = this.fullTestingSet[i, 57];
+                this.testingSet[i, 16] = this.fullTestingSet[i, 58];
+                this.testingSet[i, 17] = this.fullTestingSet[i, 59];
+                this.testingSet[i, 18] = this.fullTestingSet[i, 60];
             }
         }
 
@@ -196,7 +205,7 @@ namespace ANN
         /// </returns>
         public float[] measureInputs(float[] joints)
         {
-            float[] measuredInputs = new float[10];
+            float[] measuredInputs = new float[12];
 
             // Head to left hand
             measuredInputs[0] = toFloat(Math.Sqrt(Math.Pow((joints[0] + joints[14]), 2) + Math.Pow((joints[1] + joints[15]), 2)));
@@ -218,6 +227,10 @@ namespace ANN
             measuredInputs[8] = toFloat(Math.Sqrt(Math.Pow((joints[16] + joints[4]), 2) + Math.Pow((joints[17] + joints[5]), 2)));
             // Wrist right to shoulder right
             measuredInputs[9] = toFloat(Math.Sqrt(Math.Pow((joints[12] + joints[4]), 2) + Math.Pow((joints[13] + joints[5]), 2)));
+            // Left hand to spine
+            measuredInputs[10] = toFloat(Math.Sqrt(Math.Pow((joints[18] + joints[14]), 2) + Math.Pow((joints[19] + joints[15]), 2)));
+            // Right hand to spine
+            measuredInputs[11] = toFloat(Math.Sqrt(Math.Pow((joints[18] + joints[16]), 2) + Math.Pow((joints[19] + joints[17]), 2)));
 
             return measuredInputs;
         }
