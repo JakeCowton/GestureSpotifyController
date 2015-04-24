@@ -10,7 +10,6 @@ namespace SpotifyKinectInterface
     using System.Collections.Generic;
     using System.IO;
     using System.Windows;
-    using System.Diagnostics;
     using System.Windows.Media;
     using System.ComponentModel;
     using Microsoft.Kinect;
