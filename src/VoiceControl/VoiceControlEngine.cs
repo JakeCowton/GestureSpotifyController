@@ -28,6 +28,7 @@ namespace SpotifyKinectInterface.VoiceControl
         /// </summary>
         private RecognizerInfo ri;
 
+        private Boolean searchBarFocused = false;
 
         private SpotifyController spotifyController;
 
@@ -78,6 +79,47 @@ namespace SpotifyKinectInterface.VoiceControl
                 commands.Add(new SemanticResultValue("mute", "MUTE"));
                 commands.Add(new SemanticResultValue("volume up", "VOLUME UP"));
                 commands.Add(new SemanticResultValue("volume down", "VOLUME DOWN"));
+                commands.Add(new SemanticResultValue("search", "SEARCH"));
+                commands.Add(new SemanticResultValue("song", "SONG"));
+                commands.Add(new SemanticResultValue("artist", "ARTIST"));
+                commands.Add(new SemanticResultValue("space", "SPACE"));
+                commands.Add(new SemanticResultValue("select", "SELECT"));
+                commands.Add(new SemanticResultValue("logout", "LOGOUT"));
+                commands.Add(new SemanticResultValue("profile", "PROFILE"));
+                commands.Add(new SemanticResultValue("left", "LEFT"));
+                commands.Add(new SemanticResultValue("up", "UP"));
+                commands.Add(new SemanticResultValue("down", "DOWN"));
+                commands.Add(new SemanticResultValue("right", "RIGHT"));
+                commands.Add(new SemanticResultValue("exit", "EXIT"));
+                commands.Add(new SemanticResultValue("backspace", "BACKSPACE"));
+                commands.Add(new SemanticResultValue("clear", "CLEAR"));
+                commands.Add(new SemanticResultValue("tab", "TAB"));
+                commands.Add(new SemanticResultValue("a", "A"));
+                commands.Add(new SemanticResultValue("b", "B"));
+                commands.Add(new SemanticResultValue("c", "C"));
+                commands.Add(new SemanticResultValue("d", "D"));
+                commands.Add(new SemanticResultValue("E", "E"));
+                commands.Add(new SemanticResultValue("f", "F"));
+                commands.Add(new SemanticResultValue("g", "G"));
+                commands.Add(new SemanticResultValue("h", "H"));
+                commands.Add(new SemanticResultValue("i", "I"));
+                commands.Add(new SemanticResultValue("j", "J"));
+                commands.Add(new SemanticResultValue("k", "K"));
+                commands.Add(new SemanticResultValue("l", "L"));
+                commands.Add(new SemanticResultValue("m", "M"));
+                commands.Add(new SemanticResultValue("n", "N"));
+                commands.Add(new SemanticResultValue("o", "O"));
+                commands.Add(new SemanticResultValue("p", "P"));
+                commands.Add(new SemanticResultValue("q", "Q"));
+                commands.Add(new SemanticResultValue("r", "R"));
+                commands.Add(new SemanticResultValue("s", "S"));
+                commands.Add(new SemanticResultValue("t", "T"));
+                commands.Add(new SemanticResultValue("u", "U"));
+                commands.Add(new SemanticResultValue("v", "V"));
+                commands.Add(new SemanticResultValue("w", "W"));
+                commands.Add(new SemanticResultValue("x", "X"));
+                commands.Add(new SemanticResultValue("y", "Y"));
+                commands.Add(new SemanticResultValue("z", "Z"));
 
                 var gb = new GrammarBuilder { Culture = ri.Culture };
                 gb.Append(commands);
@@ -118,31 +160,491 @@ namespace SpotifyKinectInterface.VoiceControl
                 {
                     case "PLAY":
                         Console.WriteLine("Play");
-                        this.spotifyController.play_pause();
+                        if (searchBarFocused == false)
+                        {
+                            this.spotifyController.play_pause();
+                        }
+                        else
+                        {
+                            this.spotifyController.pressTab();
+                            this.spotifyController.pressTab();
+                            this.spotifyController.play_pause();
+                            this.spotifyController.focusSearchBar();
+                            searchBarFocused = true;
+                        }
                         break;
                     case "PAUSE":
                         Console.WriteLine("Pause");
-                        this.spotifyController.play_pause();
+                        if (searchBarFocused == false)
+                        {
+                            this.spotifyController.play_pause();
+                        }
+                        else
+                        {
+                            this.spotifyController.pressTab();
+                            this.spotifyController.pressTab();
+                            this.spotifyController.play_pause();
+                            this.spotifyController.focusSearchBar();
+                            searchBarFocused = true;
+                        }
                         break;
                     case "NEXT":
                         Console.WriteLine("Next");
-                        this.spotifyController.next();
+                        if (searchBarFocused == false)
+                        {
+                            this.spotifyController.next();
+                        }
+                        else
+                        {
+                            this.spotifyController.pressTab();
+                            this.spotifyController.pressTab();
+                            this.spotifyController.next();
+                            this.spotifyController.focusSearchBar();
+                            searchBarFocused = true;
+                        }
                         break;
                     case "PREVIOUS":
                         Console.WriteLine("Previous");
+                        if (searchBarFocused == false)
+                        {
                         this.spotifyController.previous();
+                        }
+                        else
+                        {
+                            this.spotifyController.pressTab();
+                            this.spotifyController.pressTab();
+                            this.spotifyController.previous();
+                            this.spotifyController.focusSearchBar();
+                            searchBarFocused = true;
+                        }
                         break;
                     case "VOLUME UP":
                         Console.WriteLine("Volume up");
-                        this.spotifyController.volumeUp();
+                        if (searchBarFocused == false)
+                        {
+                            this.spotifyController.volumeUp();
+                        }
+                        else
+                        {
+                            this.spotifyController.pressTab();
+                            this.spotifyController.pressTab();
+                            this.spotifyController.volumeUp();
+                            this.spotifyController.focusSearchBar();
+                            searchBarFocused = true;
+                        }
                         break;
                     case "VOLUME DOWN":
                         Console.WriteLine("Volume down");
-                        this.spotifyController.volumeDown();
+                        if (searchBarFocused == false)
+                        {
+                            this.spotifyController.volumeDown();
+                        }
+                        else
+                        {
+                            this.spotifyController.pressTab();
+                            this.spotifyController.pressTab();
+                            this.spotifyController.volumeDown();
+                            this.spotifyController.focusSearchBar();
+                            searchBarFocused = true;
+                        }
                         break;
                     case "MUTE":
                         Console.WriteLine("Mute");
+                        if(searchBarFocused == false){
                         this.spotifyController.mute();
+                        }
+                        else 
+                        {
+                            this.spotifyController.pressTab();
+                            this.spotifyController.pressTab();
+                            this.spotifyController.mute();
+                            this.spotifyController.focusSearchBar();
+                            searchBarFocused = true; 
+                        }
+                        break;
+                    
+                    case "SEARCH":
+                        //this.spotifyController.pressTab();
+                        //this.spotifyController.pressTab();
+                        this.spotifyController.focusSearchBar();
+                        Console.WriteLine("Search:...");
+                        searchBarFocused = true; 
+                        break;
+
+                    case "SONG":
+                        Console.WriteLine("Deciding Best song to play");
+                        if (searchBarFocused == true)
+                        {
+                            this.spotifyController.playBestSong();
+                            this.spotifyController.pressEnter();
+                            searchBarFocused = false;
+                        }
+                        else
+                        {
+                            this.spotifyController.focusSearchBar();
+                            this.spotifyController.playBestSong();
+                            this.spotifyController.pressEnter();
+                            searchBarFocused = false;
+                        }
+                        break;
+
+                    case "ARTIST":
+                        Console.WriteLine("Deciding song by artist search to play");
+                        if (searchBarFocused == true)
+                        {
+                            this.spotifyController.playArtistSong();
+                            searchBarFocused = false;
+                        }
+                        else
+                        {
+                            this.spotifyController.focusSearchBar();
+                            this.spotifyController.playArtistSong();
+                            searchBarFocused = false;
+                        }
+                        break;
+
+                    case "SPACE":
+                        if (searchBarFocused == true)
+                        {
+                            Console.WriteLine("Typed a Space");
+                            this.spotifyController.typeLetterSpace();
+                        }
+                        else
+                        {
+                            Console.WriteLine("To type a character please say 'SEARCH' first...");
+                        }
+                        break;
+                    case "SELECT":
+                            Console.WriteLine("Pressed Enter");
+                            this.spotifyController.pressEnter();
+                            break;
+
+                    case "CLEAR":
+                            Console.WriteLine("Search Field Cleared");
+                            this.spotifyController.clearSearchBar();
+                            break;
+                    case "BACKSPACE":
+                            Console.WriteLine("Removed a character from search field");
+                            this.spotifyController.backspace();
+                            break;
+                    case "PROFILE":
+                            Console.WriteLine("Navigated to My Profile page");
+                            this.spotifyController.profilePage();
+                            break;
+                    case "LOGOUT":
+                            Console.WriteLine("Logged out of profile");
+                            this.spotifyController.logout();
+                            break;
+                    case "EXIT":
+                            Console.WriteLine("Closed the Spotify Application");
+                            this.spotifyController.exitSpotify();
+                            break;
+                    case "UP":
+                            Console.WriteLine("Up Arrow Key Pressed");
+                            this.spotifyController.pressUp();
+                            break;
+                    case "DOWN":
+                            Console.WriteLine("Down Arrow Key Pressed");
+                            this.spotifyController.pressDown();
+                            break;
+                    case "LEFT":
+                            Console.WriteLine("Left Arrow Key Pressed");
+                            this.spotifyController.pressLeft();
+                            break;
+                    case "RIGHT":
+                            Console.WriteLine("Right Arrow Key Pressed");
+                            this.spotifyController.pressRight();
+                            break;
+                        
+                    case "A":
+                        if (searchBarFocused == true)
+                        {
+                            Console.WriteLine("Typed 'A'");
+                            this.spotifyController.typeLetterA();
+                        }
+                        else
+                        {
+                            Console.WriteLine("To type a character please say 'SEARCH' first...");
+                        }
+                        break;
+
+                    case "B":
+                        if (searchBarFocused == true)
+                        {
+                            Console.WriteLine("Typed 'B'");
+                            this.spotifyController.typeLetterB();
+                        }
+                        else
+                        {
+                            Console.WriteLine("To type a character please say 'SEARCH' first...");
+                        }
+                        break;
+
+                    case "C":
+                        if (searchBarFocused == true)
+                        {
+                            Console.WriteLine("Typed 'C'");
+                            this.spotifyController.typeLetterC();
+                        }
+                        else
+                        {
+                            Console.WriteLine("To type a character please say 'SEARCH' first...");
+                        }
+                        break;
+                    case "D":
+                        if (searchBarFocused == true)
+                        {
+                            Console.WriteLine("Typed 'D'");
+                            this.spotifyController.typeLetterD();
+                        }
+                        else
+                        {
+                            Console.WriteLine("To type a character please say 'SEARCH' first...");
+                        }
+                        break;
+                    case "E":
+                        if (searchBarFocused == true)
+                        {
+                            Console.WriteLine("Typed 'A'");
+                            this.spotifyController.typeLetterE();
+                        }
+                        else
+                        {
+                            Console.WriteLine("To type a character please say 'SEARCH' first...");
+                        }
+                        break;
+                    case "F":
+                        if (searchBarFocused == true)
+                        {
+                            Console.WriteLine("Typed 'F'");
+                            this.spotifyController.typeLetterF();
+                        }
+                        else
+                        {
+                            Console.WriteLine("To type a character please say 'SEARCH' first...");
+                        }
+                        break;
+                    case "G":
+                        if (searchBarFocused == true)
+                        {
+                            Console.WriteLine("Typed 'G'");
+                            this.spotifyController.typeLetterG();
+                        }
+                        else
+                        {
+                            Console.WriteLine("To type a character please say 'SEARCH' first...");
+                        }
+                        break;
+                    case "H":
+                        if (searchBarFocused == true)
+                        {
+                            Console.WriteLine("Typed 'H'");
+                            this.spotifyController.typeLetterH();
+                        }
+                        else
+                        {
+                            Console.WriteLine("To type a character please say 'SEARCH' first...");
+                        }
+                        break;
+                    case "I":
+                        if (searchBarFocused == true)
+                        {
+                            Console.WriteLine("Typed 'I'");
+                            this.spotifyController.typeLetterI();
+                        }
+                        else
+                        {
+                            Console.WriteLine("To type a character please say 'SEARCH' first...");
+                        }
+                        break;
+                    case "J":
+                        if (searchBarFocused == true)
+                        {
+                            Console.WriteLine("Typed 'J'");
+                            this.spotifyController.typeLetterJ();
+                        }
+                        else
+                        {
+                            Console.WriteLine("To type a character please say 'SEARCH' first...");
+                        }
+                        break;
+                    case "K":
+                        if (searchBarFocused == true)
+                        {
+                            Console.WriteLine("Typed 'K'");
+                            this.spotifyController.typeLetterK();
+                        }
+                        else
+                        {
+                            Console.WriteLine("To type a character please say 'SEARCH' first...");
+                        }
+                        break;
+                    case "L":
+                        if (searchBarFocused == true)
+                        {
+                            Console.WriteLine("Typed 'L'");
+                            this.spotifyController.typeLetterL();
+                        }
+                        else
+                        {
+                            Console.WriteLine("To type a character please say 'SEARCH' first...");
+                        }
+                        break;
+
+                    case "M":
+                        if (searchBarFocused == true)
+                        {
+                            Console.WriteLine("Typed 'M'");
+                            this.spotifyController.typeLetterM();
+                        }
+                        else
+                        {
+                            Console.WriteLine("To type a character please say 'SEARCH' first...");
+                        }
+                        break;
+                    case "N":
+                        if (searchBarFocused == true)
+                        {
+                            Console.WriteLine("Typed 'N'");
+                            this.spotifyController.typeLetterN();
+                        }
+                        else
+                        {
+                            Console.WriteLine("To type a character please say 'SEARCH' first...");
+                        }
+                        break;
+                    case "O":
+                        if (searchBarFocused == true)
+                        {
+                            Console.WriteLine("Typed 'O'");
+                            this.spotifyController.typeLetterO();
+                        }
+                        else
+                        {
+                            Console.WriteLine("To type a character please say 'SEARCH' first...");
+                        }
+                        break;
+                    case "P":
+                        if (searchBarFocused == true)
+                        {
+                            Console.WriteLine("Typed 'P'");
+                            this.spotifyController.typeLetterP();
+                        }
+                        else
+                        {
+                            Console.WriteLine("To type a character please say 'SEARCH' first...");
+                        }
+                        break;
+                    case "Q":
+                        if (searchBarFocused == true)
+                        {
+                            Console.WriteLine("Typed 'Q'");
+                            this.spotifyController.typeLetterQ();
+                        }
+                        else
+                        {
+                            Console.WriteLine("To type a character please say 'SEARCH' first...");
+                        }
+                        break;
+                    case "R":
+                        if (searchBarFocused == true)
+                        {
+                            Console.WriteLine("Typed 'R'");
+                            this.spotifyController.typeLetterR();
+                        }
+                        else
+                        {
+                            Console.WriteLine("To type a character please say 'SEARCH' first...");
+                        }
+                        break;
+                    case "S":
+                        if (searchBarFocused == true)
+                        {
+                            Console.WriteLine("Typed 'S'");
+                            this.spotifyController.typeLetterS();
+                        }
+                        else
+                        {
+                            Console.WriteLine("To type a character please say 'SEARCH' first...");
+                        }
+                        break;
+                    case "T":
+                        if (searchBarFocused == true)
+                        {
+                            Console.WriteLine("Typed 'T'");
+                            this.spotifyController.typeLetterT();
+                        }
+                        else
+                        {
+                            Console.WriteLine("To type a character please say 'SEARCH' first...");
+                        }
+                        break;
+                    case "U":
+                        if (searchBarFocused == true)
+                        {
+                            Console.WriteLine("Typed 'U'");
+                            this.spotifyController.typeLetterU();
+                        }
+                        else
+                        {
+                            Console.WriteLine("To type a character please say 'SEARCH' first...");
+                        }
+                        break;
+                    case "V":
+                        if (searchBarFocused == true)
+                        {
+                            Console.WriteLine("Typed 'V'");
+                            this.spotifyController.typeLetterV();
+                        }
+                        else
+                        {
+                            Console.WriteLine("To type a character please say 'SEARCH' first...");
+                        }
+                        break;
+                    case "W":
+                        if (searchBarFocused == true)
+                        {
+                            Console.WriteLine("Typed 'W'");
+                            this.spotifyController.typeLetterW();
+                        }
+                        else
+                        {
+                            Console.WriteLine("To type a character please say 'SEARCH' first...");
+                        }
+                        break;
+                    case "X":
+                        if (searchBarFocused == true)
+                        {
+                            Console.WriteLine("Typed 'X'");
+                            this.spotifyController.typeLetterX();
+                        }
+                        else
+                        {
+                            Console.WriteLine("To type a character please say 'SEARCH' first...");
+                        }
+                        break;
+                    case "Y":
+                        if (searchBarFocused == true)
+                        {
+                            Console.WriteLine("Typed 'Y'");
+                            this.spotifyController.typeLetterY();
+                        }
+                        else
+                        {
+                            Console.WriteLine("To type a character please say 'SEARCH' first...");
+                        }
+                        break;
+
+                    case "Z":
+                        if (searchBarFocused == true)
+                        {
+                            Console.WriteLine("Typed 'Z'");
+                            this.spotifyController.typeLetterZ();
+                        }
+                        else
+                        {
+                            Console.WriteLine("To type a character please say 'SEARCH' first...");
+                        }
                         break;
                 }
             }
