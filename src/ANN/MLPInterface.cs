@@ -58,12 +58,12 @@ namespace ANN
             getTestingData();
 
             // Get training length
-            int numOfTraining = 11200;
+            int numOfTraining = 33600;
             // Get testing length
             int numOfTesting = 1400;
 
             // Filter the data needed
-            filterFullData(11200, 1400);
+            filterFullData(33600, 1400);
 
             this.nn.TrainNetwork(numOfTraining, trainingSet);
             this.nn.TestNetwork(numOfTesting, testingSet);
@@ -78,7 +78,7 @@ namespace ANN
             String training_file = System.IO.File.ReadAllText(path);
 
             int i = 0, j = 0;
-            this.fullTrainingSet = new float[11200, 61];
+            this.fullTrainingSet = new float[33600, 61];
             foreach (var row in training_file.Split('\n'))
             {
                 j = 0;
@@ -120,7 +120,7 @@ namespace ANN
         /// </summary>
         private void filterFullData(int numOfTraining, int numOfTesting)
         {
-            this.trainingSet = new float[11200, 19];
+            this.trainingSet = new float[33600, 19];
             for (int i = 0; i < numOfTraining; i++)
             {
                 this.trainingSet[i, 0] = toFloat(Math.Sqrt(Math.Pow((this.fullTrainingSet[i, 0] + this.fullTrainingSet[i, 36]), 2) + Math.Pow((this.fullTrainingSet[i, 1] + this.fullTrainingSet[i, 37]), 2)));
