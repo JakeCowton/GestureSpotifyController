@@ -4,9 +4,25 @@ namespace MediaController
 {
     public class SpotifyController
     {
-        public void play_pause()
+
+        bool playing = false;
+
+        public void play()
         {
-            SendKeys.SendWait(" ");
+            if (playing == false)
+            {
+                SendKeys.SendWait(" ");
+                this.playing = true;
+            }
+        }
+
+        public void pause()
+        {
+            if (playing == true)
+            {
+                SendKeys.SendWait(" ");
+                this.playing = false;
+            }
         }
 
         public void next()

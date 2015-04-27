@@ -451,11 +451,11 @@ namespace SpotifyKinectInterface
             {
                 case "PLAY":
                     Console.WriteLine("Play");
-                    this.spotifyController.play_pause();
+                    this.spotifyController.play();
                     break;
                 case "PAUSE":
                     Console.WriteLine("Pause");
-                    this.spotifyController.play_pause();
+                    this.spotifyController.pause();
                     break;
                 case "SKIP":
                     Console.WriteLine("Skip");
