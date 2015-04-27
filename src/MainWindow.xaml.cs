@@ -12,6 +12,7 @@ namespace SpotifyKinectInterface
     using System.Windows;
     using System.Windows.Media;
     using System.ComponentModel;
+    using System.Threading;
     using Microsoft.Kinect;
     using SpotifyKinectInterface.VoiceControl;
     using ANN;
@@ -174,9 +175,6 @@ namespace SpotifyKinectInterface
         /// <param name="e">event arguments</param>
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
-            // Test start playing
-            this.Playing = true;
-
             // Test MLP
             this.mlpInterface = new MLPInterface();
 
@@ -296,36 +294,42 @@ namespace SpotifyKinectInterface
                     skeletonFrame.CopySkeletonDataTo(skeletons);
                 }
             }
-
-            using (DrawingContext dc = this.drawingGroup.Open())
+            try
             {
-                // Draw a transparent background to set the render size
-                dc.DrawRectangle(Brushes.Black, null, new Rect(0.0, 0.0, RenderWidth, RenderHeight));
-
-                if (skeletons.Length != 0)
+                using (DrawingContext dc = this.drawingGroup.Open())
                 {
-                    foreach (Skeleton skel in skeletons)
-                    {
-                        RenderClippedEdges(skel, dc);
+                    // Draw a transparent background to set the render size
+                    dc.DrawRectangle(Brushes.Black, null, new Rect(0.0, 0.0, RenderWidth, RenderHeight));
 
-                        if (skel.TrackingState == SkeletonTrackingState.Tracked)
+                    if (skeletons.Length != 0)
+                    {
+                        foreach (Skeleton skel in skeletons)
                         {
-                            this.DrawBonesAndJoints(skel, dc);
-                        }
-                        else if (skel.TrackingState == SkeletonTrackingState.PositionOnly)
-                        {
-                            dc.DrawEllipse(
-                            this.centerPointBrush,
-                            null,
-                            this.SkeletonPointToScreen(skel.Position),
-                            BodyCenterThickness,
-                            BodyCenterThickness);
+                            RenderClippedEdges(skel, dc);
+
+                            if (skel.TrackingState == SkeletonTrackingState.Tracked)
+                            {
+                                this.DrawBonesAndJoints(skel, dc);
+                            }
+                            else if (skel.TrackingState == SkeletonTrackingState.PositionOnly)
+                            {
+                                dc.DrawEllipse(
+                                this.centerPointBrush,
+                                null,
+                                this.SkeletonPointToScreen(skel.Position),
+                                BodyCenterThickness,
+                                BodyCenterThickness);
+                            }
                         }
                     }
                 }
-
+                
                 // prevent drawing outside of our render area
                 this.drawingGroup.ClipGeometry = new RectangleGeometry(new Rect(0.0, 0.0, RenderWidth, RenderHeight));
+            }
+            catch (InvalidOperationException)
+            {
+                Console.WriteLine("Caught overlapped drawing frames...");
             }
         }
 
@@ -335,7 +339,7 @@ namespace SpotifyKinectInterface
         /// <param name="skeleton">skeleton to dump joint data for</param>
         private float[] dumpJointData(Skeleton skeleton)
         {
-            float[] joints = new float[20] {
+            float[] joints = new float[24] {
                 skeleton.Joints[JointType.Head].Position.X, // 0
                 skeleton.Joints[JointType.Head].Position.Y, // 1
                 skeleton.Joints[JointType.ShoulderLeft].Position.X, //2
@@ -355,7 +359,11 @@ namespace SpotifyKinectInterface
                 skeleton.Joints[JointType.HandRight].Position.X, //16
                 skeleton.Joints[JointType.HandRight].Position.Y, //17
                 skeleton.Joints[JointType.Spine].Position.X, //18
-                skeleton.Joints[JointType.Spine].Position.Y //19
+                skeleton.Joints[JointType.Spine].Position.Y, //19
+                skeleton.Joints[JointType.KneeLeft].Position.X, //20
+                skeleton.Joints[JointType.KneeLeft].Position.Y, //21
+                skeleton.Joints[JointType.KneeRight].Position.X, //22
+                skeleton.Joints[JointType.KneeRight].Position.Y //23
             };
 
             return joints;
@@ -418,11 +426,15 @@ namespace SpotifyKinectInterface
             }
             if (tickCounter % 50 == 0)
             {
-                string gesture = this.mlpInterface.recall(dumpJointData(skeleton));
-                if (!gesture.Equals(""))
+                Thread myThread = new System.Threading.Thread(delegate()
                 {
-                    runCommand(gesture);
-                }
+                    string gesture = this.mlpInterface.recall(dumpJointData(skeleton));
+                    if (!gesture.Equals(""))
+                    {
+                        runCommand(gesture);
+                    }
+                });
+                myThread.Start();
             }
             tickCounter++;
         }

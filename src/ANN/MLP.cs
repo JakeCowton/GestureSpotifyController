@@ -84,7 +84,7 @@ namespace ANN
             float error = 1F;
             int count = 0;
 
-            while (count < 1000)
+            while (error > 0.0002)
             {
                 Console.WriteLine("Error: " + error);
                 Console.WriteLine("Count: " + count);
