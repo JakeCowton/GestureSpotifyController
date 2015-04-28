@@ -160,11 +160,33 @@ namespace SpotifyKinectInterface.VoiceControl
                 {
                     case "PLAY":
                         Console.WriteLine("Play");
-                        this.spotifyController.play();
+                        if (searchBarFocused == false)
+                        {
+                            this.spotifyController.play();
+                        }
+                        else
+                        {
+                            this.spotifyController.pressTab();
+                            this.spotifyController.pressTab();
+                            this.spotifyController.play();
+                            this.spotifyController.focusSearchBar();
+                            searchBarFocused = true;
+                        }
                         break;
                     case "PAUSE":
                         Console.WriteLine("Pause");
-                        this.spotifyController.pause();
+                        if (searchBarFocused == false)
+                        {
+                            this.spotifyController.pause();
+                        }
+                        else
+                        {
+                            this.spotifyController.pressTab();
+                            this.spotifyController.pressTab();
+                            this.spotifyController.pause();
+                            this.spotifyController.focusSearchBar();
+                            searchBarFocused = true;
+                        }
                         break;
                     case "NEXT":
                         Console.WriteLine("Next");
@@ -612,7 +634,6 @@ namespace SpotifyKinectInterface.VoiceControl
                             Console.WriteLine("To type a character please say 'SEARCH' first...");
                         }
                         break;
-
                     case "Z":
                         if (searchBarFocused == true)
                         {
