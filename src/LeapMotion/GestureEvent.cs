@@ -41,7 +41,7 @@ namespace LeapMotion
         /// <summary>
         /// To calculate direction
         /// </summary>
-        private float normal;
+        private float[] normal;
 
         /// <summary>
         /// Constructor to create object
@@ -58,11 +58,11 @@ namespace LeapMotion
             this.state = state;
             this.position = position;
             this.direction = direction;
-            this.progress = null;
+            this.progress = 0F;
             this.normal = null;
         }
 
-        public GestureEvent(string name, int id, string state, float progress, float normal)
+        public GestureEvent(string name, int id, string state, float progress, float[] normal)
         {
             this.name = name;
             this.id = id;
@@ -121,7 +121,7 @@ namespace LeapMotion
             }
         }
 
-        public float Normal
+        public float[] Normal
         {
             get
             {
