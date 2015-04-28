@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Leap;
 
 namespace LeapMotion
 {
@@ -41,7 +42,12 @@ namespace LeapMotion
         /// <summary>
         /// To calculate direction
         /// </summary>
-        private float[] normal;
+        private Vector normal;
+
+        /// <summary>
+        /// The circle pointable object
+        /// </summary>
+        private Pointable pointable;
 
         /// <summary>
         /// Constructor to create object
@@ -62,7 +68,7 @@ namespace LeapMotion
             this.normal = null;
         }
 
-        public GestureEvent(string name, int id, string state, float progress, float[] normal)
+        public GestureEvent(string name, int id, string state, float progress, Vector normal, Pointable pointable)
         {
             this.name = name;
             this.id = id;
@@ -71,6 +77,7 @@ namespace LeapMotion
             this.normal = normal;
             this.position = null;
             this.direction = null;
+            this.pointable = pointable;
         }
 
         public string Name
@@ -121,11 +128,15 @@ namespace LeapMotion
             }
         }
 
-        public float[] Normal
+        public bool isClockwise()
         {
-            get
+            if (this.pointable.Direction.AngleTo(this.normal) <= Math.PI / 2)
             {
-                return normal;
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 

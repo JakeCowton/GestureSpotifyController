@@ -35,9 +35,9 @@ namespace LeapMotion
                 GestureMade(this, GestureArgs);
         }
 
-        void OnCircleGesture(string GestureName, int GestureId, string GestureState, float GestureProgress, float[] GestureNormal)
+        void OnCircleGesture(string GestureName, int GestureId, string GestureState, float GestureProgress, Vector GestureNormal, Pointable GesturePointable)
         {
-            GestureArgs = new GestureEvent(GestureName, GestureId, GestureState, GestureProgress, GestureNormal);
+            GestureArgs = new GestureEvent(GestureName, GestureId, GestureState, GestureProgress, GestureNormal, GesturePointable);
             if (GestureMade != null)
             {
                 GestureMade(this, GestureArgs);
@@ -86,7 +86,7 @@ namespace LeapMotion
                         break;
                     case Gesture.GestureType.TYPECIRCLE:
                         CircleGesture circle = new CircleGesture(gesture);
-                        OnCircleGesture("circle", circle.Id, circle.State.ToString(), circle.Progress, circle.Normal.ToFloatArray());
+                        OnCircleGesture("circle", circle.Id, circle.State.ToString(), circle.Progress, circle.Normal, circle.Pointable);
                         break;
                 }
             }

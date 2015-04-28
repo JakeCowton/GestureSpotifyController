@@ -259,15 +259,34 @@ namespace SpotifyKinectInterface
             // Example setting global variable to play/pause and printing actions (Using object state - "STATESTART" signifies a new gesture)
             if (e.State.Equals("STATESTART"))
             {
-                if (e.Direction[0] > 0)
+                if (e.Name.Equals("swipe"))
                 {
-                    this.spotifyController.play();
+                    if (e.Direction[0] > 0)
+                    {
+                        this.spotifyController.play();
+                    }
+                    else
+                    {
+                        this.spotifyController.pause();
+                    }
                 }
-                else
+                else if (e.Name.Equals("circle"))
                 {
-                    this.spotifyController.pause();
+                    if (e.isClockwise() == true)
+                    {
+                        for (int i = 0; i < e.Progress; i++)
+                        {
+                            this.spotifyController.volumeUp();
+                        }
+                    }
+                    else if (e.isClockwise() == false)
+                    {
+                        for (int i = 0; i < e.Progress; i++)
+                        {
+                            this.spotifyController.volumeDown();
+                        }
+                    }
                 }
-
             }
         }
 
