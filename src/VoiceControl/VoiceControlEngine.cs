@@ -162,13 +162,13 @@ namespace SpotifyKinectInterface.VoiceControl
                         Console.WriteLine("Play");
                         if (searchBarFocused == false)
                         {
-                            this.spotifyController.play_pause();
+                            this.spotifyController.play();
                         }
                         else
                         {
                             this.spotifyController.pressTab();
                             this.spotifyController.pressTab();
-                            this.spotifyController.play_pause();
+                            this.spotifyController.play();
                             this.spotifyController.focusSearchBar();
                             searchBarFocused = true;
                         }
@@ -177,13 +177,13 @@ namespace SpotifyKinectInterface.VoiceControl
                         Console.WriteLine("Pause");
                         if (searchBarFocused == false)
                         {
-                            this.spotifyController.play_pause();
+                            this.spotifyController.pause();
                         }
                         else
                         {
                             this.spotifyController.pressTab();
                             this.spotifyController.pressTab();
-                            this.spotifyController.play_pause();
+                            this.spotifyController.pause();
                             this.spotifyController.focusSearchBar();
                             searchBarFocused = true;
                         }

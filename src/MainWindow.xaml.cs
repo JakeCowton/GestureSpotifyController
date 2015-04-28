@@ -110,11 +110,6 @@ namespace SpotifyKinectInterface
         private LeapMotion.LeapInterface leapinterface;
 
         /// <summary>
-        /// Boolean operator to represent play/pause
-        /// </summary>
-        private Boolean Playing;
-
-        /// <summary>
         /// The object which controls spotify
         /// </summary>
         private SpotifyController spotifyController;
