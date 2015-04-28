@@ -53,6 +53,7 @@ namespace LeapMotion
         {
             Console.WriteLine("Connected to leap device");
             controller.EnableGesture(Gesture.GestureType.TYPE_SWIPE);
+            controller.EnableGesture(Gesture.GestureType.TYPECIRCLE);
         }
 
         public override void OnDisconnect(Controller controller)
