@@ -176,7 +176,7 @@ namespace SpotifyKinectInterface
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
             // Test MLP
-           // this.mlpInterface = new MLPInterface();
+           this.mlpInterface = new MLPInterface();
 
             // Create the drawing group we'll use for drawing
             this.drawingGroup = new DrawingGroup();
