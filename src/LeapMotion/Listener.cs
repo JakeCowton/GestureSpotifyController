@@ -35,6 +35,15 @@ namespace LeapMotion
                 GestureMade(this, GestureArgs);
         }
 
+        void OnCircleGesture(string GestureName, int GestureId, string GestureState, float GestureProgress, Vector GestureNormal, Pointable GesturePointable)
+        {
+            GestureArgs = new GestureEvent(GestureName, GestureId, GestureState, GestureProgress, GestureNormal, GesturePointable);
+            if (GestureMade != null)
+            {
+                GestureMade(this, GestureArgs);
+            }
+        }
+
         public override void OnInit(Controller controller)
         {
             Console.WriteLine("Initialized leap listener");
@@ -44,6 +53,7 @@ namespace LeapMotion
         {
             Console.WriteLine("Connected to leap device");
             controller.EnableGesture(Gesture.GestureType.TYPE_SWIPE);
+            controller.EnableGesture(Gesture.GestureType.TYPECIRCLE);
         }
 
         public override void OnDisconnect(Controller controller)
@@ -74,6 +84,10 @@ namespace LeapMotion
                     case Gesture.GestureType.TYPE_SWIPE:
                         SwipeGesture swipe = new SwipeGesture(gesture);
                         OnGesture("swipe", swipe.Id, swipe.State.ToString(), swipe.Position.ToFloatArray(), swipe.Direction.ToFloatArray());
+                        break;
+                    case Gesture.GestureType.TYPECIRCLE:
+                        CircleGesture circle = new CircleGesture(gesture);
+                        OnCircleGesture("circle", circle.Id, circle.State.ToString(), circle.Progress, circle.Normal, circle.Pointable);
                         break;
                 }
             }
