@@ -89,7 +89,6 @@ namespace MediaController
         {
             SendKeys.SendWait("{TAB}");
         }
-
         public void playBestSong()
         {
             SendKeys.SendWait("%{DOWN}");
