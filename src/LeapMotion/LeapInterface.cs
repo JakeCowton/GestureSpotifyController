@@ -40,6 +40,7 @@ namespace LeapMotion
 
             // Have the sample listener receive events from the controller
             controller.AddListener(listener);
+            controller.SetPolicyFlags(Controller.PolicyFlag.POLICY_BACKGROUND_FRAMES);
 
             // Register event handler
             listener.GestureMade += new EventHandler<GestureEvent>(ProcessGesture);

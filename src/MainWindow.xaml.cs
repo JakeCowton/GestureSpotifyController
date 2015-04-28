@@ -262,18 +262,17 @@ namespace SpotifyKinectInterface
         private void ProcessGesture(object sender, LeapMotion.GestureEvent e)
         {
             // Example setting global variable to play/pause and printing actions (Using object state - "STATESTART" signifies a new gesture)
-            if (e.State == "STATESTART")
+            if (e.State.Equals("STATESTART"))
             {
-                if (Playing)
+                if (e.Direction[0] > 0)
                 {
-                    Console.WriteLine("Swipe - Paused music");
-                    Playing = false;
+                    this.spotifyController.play();
                 }
                 else
                 {
-                    Console.WriteLine("Swipe - Play music");
-                    Playing = true;
+                    this.spotifyController.pause();
                 }
+
             }
         }
 
