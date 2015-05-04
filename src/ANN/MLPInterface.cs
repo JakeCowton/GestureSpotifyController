@@ -75,10 +75,12 @@ namespace ANN
         private void getTrainingData()
         {
             string path = @"..\..\..\training-files\training-data.txt";
+            // Opens stream, gets data AND closes stream
             String training_file = System.IO.File.ReadAllText(path);
 
             int i = 0, j = 0;
             this.fullTrainingSet = new float[34500, 61];
+            // Reads in the data
             foreach (var row in training_file.Split('\n'))
             {
                 j = 0;
@@ -89,7 +91,6 @@ namespace ANN
                 }
                 i++;
             }
-            Console.WriteLine("Training Data Received");
         }
 
         /// <summary>
@@ -102,6 +103,7 @@ namespace ANN
 
             int i = 0, j = 0;
             this.fullTestingSet = new float[1400, 61];
+            // Reads in the testing data
             foreach (var row in testing_file.Split('\n'))
             {
                 j = 0;
@@ -112,7 +114,6 @@ namespace ANN
                 }
                 i++;
             }
-            Console.WriteLine("Testing Data Received");
         }
 
         /// <summary>
@@ -160,7 +161,7 @@ namespace ANN
                 this.trainingSet[i, 16] = toFloat(Math.Sqrt(Math.Pow((this.fullTrainingSet[i, 36] + this.fullTrainingSet[i, 42]), 2) + Math.Pow((this.fullTrainingSet[i, 37] + this.fullTrainingSet[i, 43]), 2)));
                 // Right Hand to Right Knee
                 this.trainingSet[i, 17] = toFloat(Math.Sqrt(Math.Pow((this.fullTrainingSet[i, 39] + this.fullTrainingSet[i, 45]), 2) + Math.Pow((this.fullTrainingSet[i, 40] + this.fullTrainingSet[i, 46]), 2)));
-                
+
                 // 54-60 are expected outputs
                 this.trainingSet[i, 18] = this.fullTrainingSet[i, 54];
                 this.trainingSet[i, 19] = this.fullTrainingSet[i, 55];
@@ -172,6 +173,9 @@ namespace ANN
             }
 
             this.testingSet = new float[1400, 25];
+
+            // Same order as above
+
             for (int i = 0; i < numOfTesting; i++)
             {
                 this.testingSet[i, 0] = toFloat(Math.Sqrt(Math.Pow((this.fullTestingSet[i, 0] + this.fullTestingSet[i, 36]), 2) + Math.Pow((this.fullTestingSet[i, 1] + this.fullTestingSet[i, 37]), 2)));
@@ -188,7 +192,7 @@ namespace ANN
                 this.testingSet[i, 10] = toFloat(Math.Sqrt(Math.Pow((this.fullTestingSet[i, 15] + this.fullTestingSet[i, 39]), 2) + Math.Pow((this.fullTestingSet[i, 16] + this.fullTestingSet[i, 40]), 2)));
                 // R hand to spine
                 this.testingSet[i, 11] = toFloat(Math.Sqrt(Math.Pow((this.fullTestingSet[i, 15] + this.fullTestingSet[i, 42]), 2) + Math.Pow((this.fullTestingSet[i, 16] + this.fullTestingSet[i, 43]), 2)));
-                
+
                 // Left Hand to Right Hand
                 this.testingSet[i, 12] = toFloat(Math.Sqrt(Math.Pow((this.fullTestingSet[i, 36] + this.fullTestingSet[i, 39]), 2) + Math.Pow((this.fullTestingSet[i, 37] + this.fullTestingSet[i, 40]), 2)));
                 // Left Elbow to Right Elbow
@@ -201,7 +205,7 @@ namespace ANN
                 this.testingSet[i, 16] = toFloat(Math.Sqrt(Math.Pow((this.fullTestingSet[i, 36] + this.fullTestingSet[i, 42]), 2) + Math.Pow((this.fullTestingSet[i, 37] + this.fullTestingSet[i, 43]), 2)));
                 // Right Hand to Right Knee
                 this.testingSet[i, 17] = toFloat(Math.Sqrt(Math.Pow((this.fullTestingSet[i, 39] + this.fullTestingSet[i, 45]), 2) + Math.Pow((this.fullTestingSet[i, 40] + this.fullTestingSet[i, 46]), 2)));
-                
+
                 // 54-60 are expected outputs
                 this.testingSet[i, 18] = this.fullTestingSet[i, 54];
                 this.testingSet[i, 19] = this.fullTestingSet[i, 55];
@@ -280,7 +284,7 @@ namespace ANN
             // Left Hand to Left Knee
             measuredInputs[16] = toFloat(Math.Sqrt(Math.Pow((joints[14] + joints[20]), 2) + Math.Pow((joints[15] + joints[21]), 2)));
             // Right Hand to Right Knee
-            measuredInputs[17] = toFloat(Math.Sqrt(Math.Pow((joints[16] + joints[22]), 2) + Math.Pow((joints[17] + joints[23]), 2)));    
+            measuredInputs[17] = toFloat(Math.Sqrt(Math.Pow((joints[16] + joints[22]), 2) + Math.Pow((joints[17] + joints[23]), 2)));
 
             return measuredInputs;
         }
@@ -312,7 +316,7 @@ namespace ANN
         }
 
         /// <summary>
-        ///     Classifies 
+        ///     Classifies
         /// </summary>
         /// <param name="inputs"></param>
         /// <returns></returns>
@@ -321,6 +325,7 @@ namespace ANN
             String gesture = "";
             float[] outputs = this.nn.RecallNetwork(inputs);
             float maxValue = outputs.Max();
+            // If the strongest node is above the threshold of 0.95
             if (maxValue > 0.95F)
             {
                 int maxIndex = outputs.ToList().IndexOf(maxValue);

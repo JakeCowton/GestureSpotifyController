@@ -136,7 +136,7 @@ namespace ANN
                         break;
                     }
                 }
-                  
+
                 for (int j = 0; j < numInputValues; j++)
                 {
                     neuralNetwork.SetInput(j, testingSet[i, j]);
@@ -153,7 +153,7 @@ namespace ANN
                 {
                     //Console.Write(neuralNetwork.GetOutput(k) + " , ");
                     outputEntries[outputCode, k] += neuralNetwork.GetOutput(k);
-                           
+
                 }
                 //Console.WriteLine(neuralNetwork.GetOutput(numOutputs - 1));
                 outputEntries[outputCode, numOutputs - 1] += neuralNetwork.GetOutput(numOutputs - 1);

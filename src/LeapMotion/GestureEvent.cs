@@ -50,7 +50,7 @@ namespace LeapMotion
         private Pointable pointable;
 
         /// <summary>
-        /// Constructor to create object
+        /// Constructor to create a swipe event object
         /// </summary>
         /// <param name="name">Name of the gesture</param>
         /// <param name="id">ID of the gesture</param>
@@ -68,6 +68,10 @@ namespace LeapMotion
             this.normal = null;
         }
 
+        /// <summary>
+        /// Alternative constructor for circle gesture events
+        /// <param name="normal">Contains the x, y and z vectors of the gesture</param>
+        /// <param name="pointable">The object that is making the gesture</param>
         public GestureEvent(string name, int id, string state, float progress, Vector normal, Pointable pointable)
         {
             this.name = name;
@@ -128,6 +132,9 @@ namespace LeapMotion
             }
         }
 
+        /// <summary>
+        /// Calculates if a circle gesture is clockwise or not
+        /// </summary>
         public bool isClockwise()
         {
             if (this.pointable.Direction.AngleTo(this.normal) <= Math.PI / 2)
