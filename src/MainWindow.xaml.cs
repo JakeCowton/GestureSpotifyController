@@ -66,7 +66,7 @@ namespace SpotifyKinectInterface
 
         /// <summary>
         /// Brush used for drawing joints that are currently inferred
-        /// </summary>        
+        /// </summary>
         private readonly Brush inferredJointBrush = Brushes.Yellow;
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace SpotifyKinectInterface
 
         /// <summary>
         /// Pen used for drawing bones that are currently inferred
-        /// </summary>        
+        /// </summary>
         private readonly Pen inferredBonePen = new Pen(Brushes.Gray, 1);
 
         /// <summary>
@@ -184,8 +184,6 @@ namespace SpotifyKinectInterface
 
             // Look through all sensors and start the first connected one.
             // This requires that a Kinect is connected at the time of app startup.
-            // To make your app robust against plug/unplug, 
-            // it is recommended to use KinectSensorChooser provided in Microsoft.Kinect.Toolkit (See components in Toolkit Browser).
             foreach (var potentialSensor in KinectSensor.KinectSensors)
             {
                 if (potentialSensor.Status == KinectStatus.Connected)
@@ -256,24 +254,29 @@ namespace SpotifyKinectInterface
         /// <param name="e">event arguments</param>
         private void ProcessGesture(object sender, LeapMotion.GestureEvent e)
         {
-            // Example setting global variable to play/pause and printing actions (Using object state - "STATESTART" signifies a new gesture)
+            // If a gesture has started
             if (e.State.Equals("STATESTART"))
             {
+                // If it's a swipe
                 if (e.Name.Equals("swipe"))
                 {
+                    // If it's direction is going right
                     if (e.Direction[0] > 0)
                     {
                         this.spotifyController.play();
                     }
+                    // It's direction is left
                     else
                     {
                         this.spotifyController.pause();
                     }
                 }
+                // If it's a circle
                 else if (e.Name.Equals("circle"))
                 {
                     if (e.isClockwise() == true)
                     {
+                        // For each circle made
                         for (int i = 0; i < e.Progress; i++)
                         {
                             this.spotifyController.volumeUp();
@@ -281,6 +284,7 @@ namespace SpotifyKinectInterface
                     }
                     else if (e.isClockwise() == false)
                     {
+                        // For each circle made
                         for (int i = 0; i < e.Progress; i++)
                         {
                             this.spotifyController.volumeDown();
@@ -336,7 +340,7 @@ namespace SpotifyKinectInterface
                         }
                     }
                 }
-                
+
                 // prevent drawing outside of our render area
                 this.drawingGroup.ClipGeometry = new RectangleGeometry(new Rect(0.0, 0.0, RenderWidth, RenderHeight));
             }
@@ -347,7 +351,7 @@ namespace SpotifyKinectInterface
         }
 
         /// <summary>
-        /// Dumps skeleton joint co-ordinates to debug console
+        /// Filters out the points needed by the MLP
         /// </summary>
         /// <param name="skeleton">skeleton to dump joint data for</param>
         private float[] dumpJointData(Skeleton skeleton)
@@ -453,7 +457,7 @@ namespace SpotifyKinectInterface
         }
 
         /// <summary>
-        /// Calls the command from the interface project
+        /// Calls the command from the media controller
         /// </summary>
         /// <param name="command">
         ///     The name of the command to run
@@ -500,7 +504,7 @@ namespace SpotifyKinectInterface
         /// <returns>mapped point</returns>
         private Point SkeletonPointToScreen(SkeletonPoint skelpoint)
         {
-            // Convert point to depth space.  
+            // Convert point to depth space.
             // We are not using depth directly, but we do want the points in our 640x480 output resolution.
             DepthImagePoint depthPoint = this.sensor.CoordinateMapper.MapSkeletonPointToDepthPoint(skelpoint, DepthImageFormat.Resolution640x480Fps30);
             return new Point(depthPoint.X, depthPoint.Y);

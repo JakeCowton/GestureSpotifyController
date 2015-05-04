@@ -28,8 +28,15 @@ namespace SpotifyKinectInterface.VoiceControl
         /// </summary>
         private RecognizerInfo ri;
 
+        /// <summary>
+        /// Notes whether the search bar has been focused or not
+        /// This breaks if the search bar is manually focused using a mouse
+        /// </summary>
         private Boolean searchBarFocused = false;
 
+        /// <summary>
+        /// Access to the Spotify controller class
+        /// </summary>
         private SpotifyController spotifyController;
 
         public VoiceControlEngine(KinectSensor sensor)
@@ -61,6 +68,9 @@ namespace SpotifyKinectInterface.VoiceControl
             return null;
         }
 
+        /// <summary>
+        /// Outlines the valid voice commands
+        /// </summary>
         public void voiceRec()
         {
             if (null != this.ri)
@@ -126,13 +136,10 @@ namespace SpotifyKinectInterface.VoiceControl
 
                 var g = new Grammar(gb);
 
+                // Loads the grammar specified above
                 speechEngine.LoadGrammar(g);
 
                 speechEngine.SpeechRecognized += SpeechRecognized;
-
-                // For long recognition sessions (a few hours or more), it may be beneficial to turn off adaptation of the acoustic model. 
-                // This will prevent recognition accuracy from degrading over time.
-                ////speechEngine.UpdateRecognizerSetting("AdaptationOn", 0);
 
                 speechEngine.SetInputToAudioStream(
                     sensor.AudioSource.Start(), new SpeechAudioFormatInfo(EncodingFormat.Pcm, 16000, 16, 1, 32000, 2, null));
@@ -154,6 +161,7 @@ namespace SpotifyKinectInterface.VoiceControl
             // Speech utterance confidence below which we treat speech as if it hadn't been heard
             const double ConfidenceThreshold = 0.3;
 
+            // If the speec heard is above the threshold
             if (e.Result.Confidence >= ConfidenceThreshold)
             {
                 switch (e.Result.Semantics.Value.ToString())
@@ -253,22 +261,22 @@ namespace SpotifyKinectInterface.VoiceControl
                         if(searchBarFocused == false){
                         this.spotifyController.mute();
                         }
-                        else 
+                        else
                         {
                             this.spotifyController.pressTab();
                             this.spotifyController.pressTab();
                             this.spotifyController.mute();
                             this.spotifyController.focusSearchBar();
-                            searchBarFocused = true; 
+                            searchBarFocused = true;
                         }
                         break;
-                    
+
                     case "SEARCH":
                         //this.spotifyController.pressTab();
                         //this.spotifyController.pressTab();
                         this.spotifyController.focusSearchBar();
                         Console.WriteLine("Search:...");
-                        searchBarFocused = true; 
+                        searchBarFocused = true;
                         break;
 
                     case "SONG":
@@ -355,7 +363,7 @@ namespace SpotifyKinectInterface.VoiceControl
                             Console.WriteLine("Right Arrow Key Pressed");
                             this.spotifyController.pressRight();
                             break;
-                        
+
                     case "A":
                         if (searchBarFocused == true)
                         {
@@ -649,6 +657,9 @@ namespace SpotifyKinectInterface.VoiceControl
             }
         }
 
+        /// <summary>
+        /// Ends used threads correctly
+        /// </summary>
         public void kill()
         {
             this.speechEngine.Dispose();

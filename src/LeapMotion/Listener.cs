@@ -21,7 +21,7 @@ namespace LeapMotion
         private GestureEvent GestureArgs;
 
         /// <summary>
-        /// Method to trigger event
+        /// Method to trigger event for swipe gestures
         /// </summary>
         /// <param name="GestureName">The name of the gesture performed</param>
         /// <param name="GestureId">The ID of the gesture</param>
@@ -34,7 +34,14 @@ namespace LeapMotion
             if (GestureMade != null)
                 GestureMade(this, GestureArgs);
         }
-
+        /// <summary>
+        /// Method to trigger event for cirle gestures
+        /// </summary>
+        /// <param name="GestureName">The name of the gesture performed</param>
+        /// <param name="GestureId">The ID of the gesture</param>
+        /// <param name="GestureState">The state of the gesture in the frame</param>
+        /// <param name="GestureNormal">The vector of the gesture</param>
+        /// <param name="GesturePointable">The object used to make the gesture</param>
         void OnCircleGesture(string GestureName, int GestureId, string GestureState, float GestureProgress, Vector GestureNormal, Pointable GesturePointable)
         {
             GestureArgs = new GestureEvent(GestureName, GestureId, GestureState, GestureProgress, GestureNormal, GesturePointable);
