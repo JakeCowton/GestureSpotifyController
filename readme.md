@@ -1,20 +1,155 @@
-# AI Project
+# Gesture Controller for Spotify
 
-## File Structure
-- Source files in `src`
+This software is a basic proof of concept to demonstrate the use of neural networks in static gesture recognition using the Microsoft Kinect.
 
-I've found it really helpful with the projects I've worked on to create an issue ticket for everything you work on, just because that way we can all see what's been done and what needs doing.
+## Requirements
 
+Xbox 360 Kinect
+Kinect SDK 1.8
+MS Speech SDK 11.0
+Leap Motion*
+Leap Motion SDK 2.2.7*
 
-## How to copy
+* Optional
 
-1. Fork the repo
-2. Clone it with `git clone https://USERNAME@bitbucket.org/BFCAJC-aiproject/aiproject.git`
+## Usage
 
-## How to write
+Run the software in Visual Studio and allow the nueral network to train. Once this has completed you can carry out the gestures infront of the Kinect
 
-Once you have a branch that you want to commit to this repo:
+## Gestures
+### Kinect
+#### Play
 
-1. Rebase against latest version of master branch in the main repo and fix any conflicts
-2. Go to "Create a pull request"
-3. Enter the details
+Both arms up to the side
+
+```
+                 |
+                 |
+----------------------------------------
+                 |
+                 |
+                 |
+                 |
+                 |
+                 |
+                 |
+
+```
+
+#### Pause
+
+Both arms up in the air
+
+```
+               | | |
+               | | |
+               |---|
+                 |
+                 |
+                 |
+                 |
+                 |
+                 |
+                 |
+
+```
+
+#### Skip
+
+Right arm up by side
+
+```
+                  |
+                  |
+            --------------------------
+            |     |
+            |     |
+            |     |
+            |     |
+            |     |
+            |     |
+                  |
+
+```
+
+#### Previous
+
+Left arm up by side
+
+```
+                  |
+                  |
+--------------------------
+                  |      |
+                  |      |
+                  |      |
+                  |      |
+                  |      |
+                  |      |
+                  |
+
+```
+
+#### Volume Up
+
+Both arms pointing up, 90 degree bend at elbow
+
+```
+            |     |    |
+            |     |    |
+             -----------
+                  |
+                  |
+                  |
+                  |
+                  |
+                  |
+                  |
+
+```
+
+#### Volume Down
+
+Both arms pointing down, 90 degree bend at elbow
+
+```
+                  |
+                  |
+             -----------
+             |    |   |
+             |    |   |
+                  |
+                  |
+                  |
+                  |
+                  |
+
+```
+
+#### Mute
+
+Right hand over mouth
+
+```
+                  |----
+                  |   |
+            -----------
+            |     |
+            |     |
+            |     |
+            |     |
+            |     |
+            |     |
+                  |
+
+```
+
+### Leap
+
+#### Volume Up
+
+Draw clockwise circle with a pointed finger
+
+#### Volume Down
+
+Draw anti-clockwise circle with a pointed finger
