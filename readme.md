@@ -4,11 +4,11 @@ This software is a basic proof of concept to demonstrate the use of neural netwo
 
 ## Requirements
 
-Xbox 360 Kinect
-Kinect SDK 1.8
-MS Speech SDK 11.0
-Leap Motion*
-Leap Motion SDK 2.2.7*
+- Xbox 360 Kinect
+- Kinect SDK 1.8
+- MS Speech SDK 11.0
+- Leap Motion*
+- Leap Motion SDK 2.2.7*
 
 * Optional
 
